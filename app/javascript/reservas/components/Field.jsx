@@ -1,8 +1,10 @@
+import styles from './Field.scss'
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import withStyles from "@material-ui/core/styles/withStyles";
+import { withStyles } from '@material-ui/core/styles';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,6 +17,8 @@ import Grid from '@material-ui/core/Grid';
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import SweetAlert from "react-bootstrap-sweetalert";
+
+
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
