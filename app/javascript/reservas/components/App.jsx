@@ -11,9 +11,7 @@ import Field from './Field';
 
 const App = (props) => (
   <Router>
-
     <div>
-
       <Route
         exact
         path='/'
@@ -29,7 +27,6 @@ const App = (props) => (
         path='/field'
         component={Field}
         />
-
     </div>
   </Router>
 );

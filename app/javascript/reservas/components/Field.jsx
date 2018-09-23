@@ -18,8 +18,6 @@ import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import SweetAlert from "react-bootstrap-sweetalert";
 
-
-
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
 const stylesMain = theme => ({
@@ -120,7 +118,7 @@ class Field extends React.Component {
           cancelBtnCssClass={
             this.props.classes.button + " " + this.props.classes.danger
           }
-        />
+          />
       )
     });
   }
@@ -144,8 +142,8 @@ class Field extends React.Component {
   eventColors(event, start, end, isSelected) {
     var backgroundColor = "event-";
     event.color
-      ? (backgroundColor = backgroundColor + event.color)
-      : (backgroundColor = backgroundColor + "default");
+    ? (backgroundColor = backgroundColor + event.color)
+    : (backgroundColor = backgroundColor + "default");
     return {
       className: backgroundColor
     };
@@ -188,18 +186,16 @@ class Field extends React.Component {
               </Typography>
             </div>
           </Paper>
-
-                <BigCalendar
-                  selectable
-                  events={this.state.events}
-                  defaultView="month"
-                  scrollToTime={new Date(1970, 1, 1, 6)}
-                  defaultDate={new Date()}
-                  onSelectEvent={event => this.selectedEvent(event)}
-                  onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
-                  eventPropGetter={this.eventColors}
-                />
-
+          <BigCalendar
+            selectable
+            events={this.state.events}
+            defaultView="month"
+            scrollToTime={new Date(1970, 1, 1, 6)}
+            defaultDate={new Date()}
+            onSelectEvent={event => this.selectedEvent(event)}
+            onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
+            eventPropGetter={this.eventColors}
+            />
         </main>
       </React.Fragment>
     );
