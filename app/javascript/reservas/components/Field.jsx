@@ -17,8 +17,10 @@ import Grid from '@material-ui/core/Grid';
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import SweetAlert from "react-bootstrap-sweetalert";
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
-BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
+const localizer = BigCalendar.momentLocalizer(moment);
 
 const stylesMain = theme => ({
   mainTitle: {
@@ -31,6 +33,9 @@ const stylesMain = theme => ({
     [theme.breakpoints.up('md')]: {
       paddingRight: 0,
     },
+  },
+  card: {
+    margin: '10px',
   },
 });
 
@@ -186,16 +191,24 @@ class Field extends React.Component {
               </Typography>
             </div>
           </Paper>
-          <BigCalendar
-            selectable
-            events={this.state.events}
-            defaultView="month"
-            scrollToTime={new Date(1970, 1, 1, 6)}
-            defaultDate={new Date()}
-            onSelectEvent={event => this.selectedEvent(event)}
-            onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
-            eventPropGetter={this.eventColors}
-            />
+          <Card className={classes.card}>
+            <CardContent>
+              <BigCalendar
+                selectable
+                localizer={localizer}
+                events={this.state.events}
+                defaultView="month"
+                timeslots={1}
+                step={60}
+                views={['month', 'week', 'day']}
+
+
+                onSelectEvent={event => this.selectedEvent(event)}
+                onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
+                eventPropGetter={this.eventColors}
+                />
+            </CardContent>
+          </Card>
         </main>
       </React.Fragment>
     );
