@@ -7,21 +7,30 @@ import {
 
 import Place from './Place';
 import SignIn from './SignIn';
+import Field from './Field';
 
 const App = (props) => (
   <Router>
-	<div>
-	  <Route
-        exact
-	    path='/'
-	    component={Place}
-	  />
+
+    <div>
+
       <Route
         exact
-	    path='/login'
-	    component={SignIn}
-	  />
-	</div>
+        path='/'
+        component={Place}
+        />
+      <Route
+        exact
+        path='/login'
+        component={SignIn}
+        />
+      <Route
+        exact
+        path='/field'
+        component={Field}
+        />
+
+    </div>
   </Router>
 );
 
