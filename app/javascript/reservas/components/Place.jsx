@@ -100,7 +100,7 @@ class Place extends React.Component {
           </Toolbar>
         </AppBar>
         <main>
-          
+
           <div className={classes.heroUnit}>
             <div className={classes.heroContent}>
               <Typography
@@ -118,7 +118,7 @@ class Place extends React.Component {
                 Una pequeña descripción del lugar junto con la dirección.
               </Typography>
               <div>
-                <Grid container spacing={4}>
+                <Grid container spacing={0}>
                   <Grid item xs={4}>
                     <ListItem>
                       <ListItemIcon>
