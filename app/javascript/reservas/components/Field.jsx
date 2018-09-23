@@ -15,11 +15,10 @@ import Grid from '@material-ui/core/Grid';
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import SweetAlert from "react-bootstrap-sweetalert";
-import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
-const styles2 = theme => ({
+const stylesMain = theme => ({
   mainTitle: {
     backgroundColor: theme.palette.grey[800],
     color: theme.palette.common.white,
@@ -207,4 +206,4 @@ Field.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles2)(Field);
+export default withStyles(stylesMain)(Field);
