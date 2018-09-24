@@ -157,20 +157,4 @@ class CheckoutModal extends React.Component {
   }
 }
 
-function randomNum(hi){
-    return Math.floor(Math.random()*hi);
-}
-
-function randomChar(){
-    return String.fromCharCode(randomNum(100));
-}
-
-function randomString(length){
-   var str = "";
-   for(var i = 0; i < length; ++i){
-        str += randomChar();
-   }
-   return str;
-}
-
 export default withStyles(styles, modalStyle)(CheckoutModal);
