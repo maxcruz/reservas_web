@@ -1,6 +1,5 @@
 import styles from './Field.scss'
 import React from 'react';
-
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -101,7 +100,8 @@ class Field extends React.Component {
     super(props);
     this.state = {
       events: events,
-      alert: null
+      alert: null,
+      view: 'month'
     };
     this.hideAlert = this.hideAlert.bind(this);
   }
@@ -109,6 +109,13 @@ class Field extends React.Component {
     alert(event.title);
   }
   addNewEventAlert(slotInfo) {
+    if (slotInfo.start == slotInfo.end && this.state.view != 'day') {
+      this.setState({
+        view:'day'
+      });
+      return;
+    }
+    console.log(slotInfo);
     this.setState({
       alert: (
         <SweetAlert
@@ -178,52 +185,52 @@ class Field extends React.Component {
         <main>
           <br />
           <GridContainer spacing={16} justify="center">
-          <GridItem lg={3}>
-            <Card>
-              <CardHeader color="warning" stats icon>
-                <CardIcon color="warning">
-                  <MoneyIcon />
-                </CardIcon>
-                <h2 className={classes.cardTitle}>$120,000</h2>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  Precio
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem lg={3}>
-            <Card>
-              <CardHeader color="success" stats icon>
-                <CardIcon color="success">
-                  <StoreIcon />
-                </CardIcon>
-                <h2 className={classes.cardTitle}>Si</h2>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  Techada
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem lg={3}>
-            <Card>
-              <CardHeader color="danger" stats icon>
-                <CardIcon color="danger">
-                  <PlayerIcon />
-                </CardIcon>
-                <h2 className={classes.cardTitle}>11</h2>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  Jugadores
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-        </GridContainer>
+            <GridItem lg={3}>
+              <Card>
+                <CardHeader color="warning" stats icon>
+                  <CardIcon color="warning">
+                    <MoneyIcon />
+                  </CardIcon>
+                  <h2 className={classes.cardTitle}>$120,000</h2>
+                </CardHeader>
+                <CardFooter stats>
+                  <div className={classes.stats}>
+                    Precio
+                  </div>
+                </CardFooter>
+              </Card>
+            </GridItem>
+            <GridItem lg={3}>
+              <Card>
+                <CardHeader color="success" stats icon>
+                  <CardIcon color="success">
+                    <StoreIcon />
+                  </CardIcon>
+                  <h2 className={classes.cardTitle}>Si</h2>
+                </CardHeader>
+                <CardFooter stats>
+                  <div className={classes.stats}>
+                    Techada
+                  </div>
+                </CardFooter>
+              </Card>
+            </GridItem>
+            <GridItem lg={3}>
+              <Card>
+                <CardHeader color="danger" stats icon>
+                  <CardIcon color="danger">
+                    <PlayerIcon />
+                  </CardIcon>
+                  <h2 className={classes.cardTitle}>11</h2>
+                </CardHeader>
+                <CardFooter stats>
+                  <div className={classes.stats}>
+                    Jugadores
+                  </div>
+                </CardFooter>
+              </Card>
+            </GridItem>
+          </GridContainer>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={10}>
               <Card>
@@ -236,7 +243,13 @@ class Field extends React.Component {
                     defaultView="month"
                     timeslots={1}
                     step={60}
+                    onView={view => {
+                      this.setState({
+                        view: view
+                      });
+                    }}
                     views={['month', 'week', 'day']}
+                    view={this.state.view}
                     onSelectEvent={event => this.selectedEvent(event)}
                     onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
                     eventPropGetter={this.eventColors}
