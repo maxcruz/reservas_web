@@ -233,6 +233,11 @@ class Field extends React.Component {
                     }}
                     views={['month', 'week', 'day']}
                     view={this.state.view}
+                    onNavigate={(day) => {
+                      this.setState({
+                        selectedDate: day
+                      });
+                    }}
                     onSelectEvent={event => this.selectedEvent(event)}
                     onSelectSlot={slotInfo => this.openCheckoutModal(slotInfo)}
                     eventPropGetter={this.eventColors}
@@ -243,7 +248,11 @@ class Field extends React.Component {
           </GridContainer>
         </main>
         { this.state.checkout ?
-          <CheckoutModal show={true} onClose={() => { this.setState({ checkout: false }) }} />
+          <CheckoutModal
+            show={true}
+            onClose={() => { this.setState({ checkout: false }) }}
+            slotInfo={this.state.selectedSlot}
+            />
           :
           null
         }

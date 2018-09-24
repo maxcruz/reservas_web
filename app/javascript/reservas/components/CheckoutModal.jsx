@@ -42,7 +42,7 @@ class CheckoutModal extends React.Component {
       case 0:
         return <PaymentForm />;
       case 1:
-        return <PaymentReview />;
+        return <PaymentReview slotInfo={this.props.slotInfo} />;
       case 2:
         return (
           <React.Fragment>
