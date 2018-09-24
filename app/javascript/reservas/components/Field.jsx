@@ -121,17 +121,15 @@ class Field extends React.Component {
     });
   }
 
-  addNewEvent(e, slotInfo) {
+  addNewEvent(title, slotInfo) {
     var newEvents = this.state.events;
     newEvents.push({
-      title: e,
+      title: title,
       start: slotInfo.start,
-      end: slotInfo.end
+      end: slotInfo.end,
+      color: "azure"
     });
-    this.setState({
-      alert: null,
-      events: newEvents
-    });
+    this.setState({ events: newEvents });
   }
 
   eventColors(event, start, end, isSelected) {
@@ -250,7 +248,12 @@ class Field extends React.Component {
         { this.state.checkout ?
           <CheckoutModal
             show={true}
-            onClose={() => { this.setState({ checkout: false }) }}
+            onClose={(title, slotInfo) => {
+              if (title != undefined && slotInfo != undefined) {
+                  this.addNewEvent(title, slotInfo);
+              }
+              this.setState({ checkout: false });
+            }}
             slotInfo={this.state.selectedSlot}
             />
           :
