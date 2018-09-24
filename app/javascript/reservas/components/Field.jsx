@@ -105,14 +105,13 @@ class Field extends React.Component {
       checkout: false,
       view: 'month'
     };
-    this.hideAlert = this.hideAlert.bind(this);
   }
 
   selectedEvent(event) {
     alert(event.title);
   }
 
-  addNewEventAlert(slotInfo) {
+  openCheckoutModal(slotInfo) {
     if (slotInfo.start == slotInfo.end && this.state.view != 'day') {
       this.setState({ view:'day' });
       return;
@@ -131,12 +130,6 @@ class Field extends React.Component {
     this.setState({
       alert: null,
       events: newEvents
-    });
-  }
-
-  hideAlert() {
-    this.setState({
-      alert: null
     });
   }
 
@@ -239,7 +232,7 @@ class Field extends React.Component {
                     views={['month', 'week', 'day']}
                     view={this.state.view}
                     onSelectEvent={event => this.selectedEvent(event)}
-                    onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
+                    onSelectSlot={slotInfo => this.openCheckoutModal(slotInfo)}
                     eventPropGetter={this.eventColors}
                     />
                 </CardBody>
@@ -247,7 +240,11 @@ class Field extends React.Component {
             </GridItem>
           </GridContainer>
         </main>
-        {this.state.checkout ? <CheckoutModal /> : null}
+        { this.state.checkout ?
+          <CheckoutModal show={true} onClose={() => { this.setState({ checkout: false }) }} />
+          :
+          null
+        }
       </React.Fragment>
     );
   }
