@@ -15,8 +15,6 @@ import PaymentReview from './PaymentReview';
 
 import modalStyle from "material-dashboard/assets/jss/material-dashboard-pro-react/modalStyle.jsx";
 
-const steps = ['Pago', 'Confirmar'];
-
 const styles = theme => ({
   buttons: {
     margin: '5px',
@@ -27,66 +25,64 @@ const styles = theme => ({
   }
 });
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <PaymentForm />;
-    case 1:
-      return <PaymentReview />;
-    case 2:
-      return (
-        <React.Fragment>
-          <Typography variant="headline" gutterBottom>
-            Gracias por tu compra.
-          </Typography>
-          <Typography variant="subheading">
-            Tu número de orden es <b>#2001539</b>. Hemos enviado por correo electrónico la
-            confirmación de su reserva, por favor presentela en el lugar.
-          </Typography>
-        </React.Fragment>
-      );
-
-    default:
-      throw new Error('Unknown step');
-  }
-}
+const steps = ['Pago', 'Confirmar'];
 
 class CheckoutModal extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      modal: true,
+      show: this.props.show,
       activeStep: 0
     };
+  }
+
+  getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <PaymentForm />;
+      case 1:
+        return <PaymentReview />;
+      case 2:
+        return (
+          <React.Fragment>
+            <Typography variant="headline" gutterBottom>
+              Gracias por tu compra.
+            </Typography>
+            <Typography variant="subheading">
+              Tu número de orden es <b>#2001539</b>. Hemos enviado por correo electrónico la
+              confirmación de su reserva, por favor presentela en el lugar.
+            </Typography>
+          </React.Fragment>
+        );
+
+      default:
+        throw new Error('Unknown step');
+    }
   }
 
   handleNext = () => {
     const { activeStep } = this.state;
     if (activeStep == steps.length) {
-      this.setState({ modal: false });
+      this.setState({ show: false });
+      this.props.onClose();
       return;
     }
-    this.setState({
-      activeStep: activeStep + 1,
-    });
+    this.setState({ activeStep: activeStep + 1 });
   };
 
   handleBack = () => {
     const { activeStep } = this.state;
     if (activeStep == 0) {
-      this.setState({ modal: false });
+      this.setState({ show: false });
+      this.props.onClose();
       return;
     }
-    this.setState({
-      activeStep: activeStep - 1,
-    });
+    this.setState({ activeStep: activeStep - 1 });
   };
 
   handleReset = () => {
-    this.setState({
-      activeStep: 0,
-    });
+    this.setState({ activeStep: 0 });
   };
 
   render(){
@@ -101,7 +97,7 @@ class CheckoutModal extends React.Component {
             root: classes.center,
             paper: classes.modal
           }}
-          open={this.state.modal}>
+          open={this.state.show}>
           <DialogContent
             id="modal-slide-description"
             className={classes.modalBody}>
@@ -112,7 +108,7 @@ class CheckoutModal extends React.Component {
                 </Step>
               ))}
             </Stepper>
-            {getStepContent(activeStep)}
+            {this.getStepContent(activeStep)}
           </DialogContent>
           <DialogActions
             className={classes.modalFooter + " " +classes.modalFooterCenter}>
