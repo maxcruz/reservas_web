@@ -26,6 +26,8 @@ import MoneyIcon from '@material-ui/icons/AttachMoney';
 import PlayerIcon from '@material-ui/icons/DirectionsRun'
 import StoreIcon from "@material-ui/icons/Store";
 
+import CheckoutModal from './CheckoutModal';
+
 const localizer = BigCalendar.momentLocalizer(moment);
 
 const stylesMain = theme => ({
@@ -100,41 +102,25 @@ class Field extends React.Component {
     super(props);
     this.state = {
       events: events,
-      alert: null,
+      checkout: false,
       view: 'month'
     };
     this.hideAlert = this.hideAlert.bind(this);
   }
+
   selectedEvent(event) {
     alert(event.title);
   }
+
   addNewEventAlert(slotInfo) {
     if (slotInfo.start == slotInfo.end && this.state.view != 'day') {
-      this.setState({
-        view:'day'
-      });
+      this.setState({ view:'day' });
       return;
     }
     console.log(slotInfo);
-    this.setState({
-      alert: (
-        <SweetAlert
-          input
-          showCancel
-          style={{ display: "block", marginTop: "-100px" }}
-          title="Input something"
-          onConfirm={e => this.addNewEvent(e, slotInfo)}
-          onCancel={() => this.hideAlert()}
-          confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.success
-          }
-          cancelBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.danger
-          }
-          />
-      )
-    });
+    this.setState({ checkout: true });
   }
+
   addNewEvent(e, slotInfo) {
     var newEvents = this.state.events;
     newEvents.push({
@@ -147,11 +133,13 @@ class Field extends React.Component {
       events: newEvents
     });
   }
+
   hideAlert() {
     this.setState({
       alert: null
     });
   }
+
   eventColors(event, start, end, isSelected) {
     var backgroundColor = "event-";
     event.color
@@ -259,6 +247,7 @@ class Field extends React.Component {
             </GridItem>
           </GridContainer>
         </main>
+        {this.state.checkout ? <CheckoutModal /> : null}
       </React.Fragment>
     );
   }

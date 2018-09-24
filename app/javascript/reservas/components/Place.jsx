@@ -210,14 +210,14 @@ class Place extends React.Component {
             variant="title"
             align="center"
             gutterBottom>
-            © 2018
+            Sistema de reserva de espacios deportivos.
           </Typography>
           <Typography
             variant="subheading"
             align="center"
             color="textSecondary"
             component="p">
-            Sistema de reserva de espacios deportivos.
+            Copyright (c) 2018
           </Typography>
         </footer>
 
