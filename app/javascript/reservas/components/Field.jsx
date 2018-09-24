@@ -25,8 +25,18 @@ import CardFooter from "material-dashboard/components/Card/CardFooter.jsx";
 import MoneyIcon from '@material-ui/icons/AttachMoney';
 import PlayerIcon from '@material-ui/icons/DirectionsRun'
 import StoreIcon from "@material-ui/icons/Store";
+import Chip from '@material-ui/core/Chip';
+import { withTheme } from '@material-ui/core/styles';
+
+import teal from '@material-ui/core/colors/teal';
+import grey from '@material-ui/core/colors/grey';
+import green from '@material-ui/core/colors/green';
 
 import CheckoutModal from './CheckoutModal';
+
+const teal500 = teal[500];
+const grey500 = grey[500];
+const green500 = green[500];
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -39,6 +49,10 @@ const stylesMain = theme => ({
     color: 'grey',
     fontSize: '14pt',
   },
+  chip: {
+    marginLeft: '3px',
+    marginRight: '3px',
+  }
 });
 
 var today = new Date();
@@ -48,45 +62,35 @@ var d = today.getDate();
 
 const events = [
   {
-    title: "All Day Event",
-    allDay: true,
+    title: "RESERVED",
     start: new Date(y, m, 1),
     end: new Date(y, m, 1),
-    color: "default"
   },
   {
-    title: "Meeting",
+    title: "RESERVED",
     start: new Date(y, m, d - 1, 10, 30),
     end: new Date(y, m, d - 1, 11, 30),
-    allDay: false,
-    color: "green"
   },
   {
-    title: "Lunch",
+    title: "RESERVED",
     start: new Date(y, m, d + 7, 12, 0),
     end: new Date(y, m, d + 7, 14, 0),
-    allDay: false,
-    color: "red"
   },
   {
-    title: "Nud-pro Launch",
+    title: "PROMO",
     start: new Date(y, m, d - 2),
     end: new Date(y, m, d - 2),
-    allDay: true,
-    color: "azure"
+    isPromo: true,
   },
   {
-    title: "Birthday Party",
+    title: " RESERVED",
     start: new Date(y, m, d + 1, 19, 0),
     end: new Date(y, m, d + 1, 22, 30),
-    allDay: false,
-    color: "azure"
   },
   {
-    title: "Click for Google",
+    title: "RESERVED",
     start: new Date(y, m, 21),
     end: new Date(y, m, 22),
-    color: "rose"
   }
 ];
 
@@ -127,19 +131,25 @@ class Field extends React.Component {
       title: title,
       start: slotInfo.start,
       end: slotInfo.end,
-      color: "azure"
+      isMine: true
     });
     this.setState({ events: newEvents });
   }
 
   eventColors(event, start, end, isSelected) {
-    var backgroundColor = "event-";
-    event.color
-    ? (backgroundColor = backgroundColor + event.color)
-    : (backgroundColor = backgroundColor + "default");
-    return {
-      className: backgroundColor
-    };
+    let newStyle = {
+        backgroundColor: "lightgrey",
+        color: 'black',
+        borderRadius: "0px",
+        border: "none"
+      };
+      if (event.isPromo){
+        newStyle.backgroundColor = "pink"
+      }
+      if (event.isMine){
+        newStyle.backgroundColor = "indigo"
+      }
+      return { className: "", style: newStyle };
   }
 
   render() {
@@ -210,6 +220,21 @@ class Field extends React.Component {
                 </CardFooter>
               </Card>
             </GridItem>
+          </GridContainer>
+          <GridContainer justify="center">
+            <Chip
+              label="Mis reservas"
+              color="primary"
+              className={classes.chip}
+              />
+            <Chip
+              label="Reservas de otros"
+              color="default"
+              className={classes.chip}  />
+            <Chip
+              label="Promoción"
+              color="secondary"
+              className={classes.chip}  />
           </GridContainer>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={10}>
