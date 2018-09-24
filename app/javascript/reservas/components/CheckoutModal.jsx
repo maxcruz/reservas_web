@@ -33,7 +33,8 @@ class CheckoutModal extends React.Component {
     super(props);
     this.state = {
       show: this.props.show,
-      activeStep: 0
+      activeStep: 0,
+      code: null,
     };
   }
 
@@ -50,7 +51,7 @@ class CheckoutModal extends React.Component {
               Gracias por tu compra.
             </Typography>
             <Typography variant="subheading">
-              Tu número de orden es <b>#2001539</b>. Hemos enviado por correo electrónico la
+              Tu número de orden es <b>{this.state.code}</b>. Hemos enviado por correo electrónico la
               confirmación de su reserva, por favor presentela en el lugar.
             </Typography>
           </React.Fragment>
@@ -63,9 +64,13 @@ class CheckoutModal extends React.Component {
 
   handleNext = () => {
     const { activeStep } = this.state;
+    if (activeStep == steps.length - 1) {
+      let reservation = Math.random().toString(36).slice(2).toUpperCase();
+      this.setState({ code: reservation });
+    }
     if (activeStep == steps.length) {
       this.setState({ show: false });
-      this.props.onClose();
+      this.props.onClose(this.state.code, this.props.slotInfo);
       return;
     }
     this.setState({ activeStep: activeStep + 1 });
@@ -150,6 +155,22 @@ class CheckoutModal extends React.Component {
       </div>
     );
   }
+}
+
+function randomNum(hi){
+    return Math.floor(Math.random()*hi);
+}
+
+function randomChar(){
+    return String.fromCharCode(randomNum(100));
+}
+
+function randomString(length){
+   var str = "";
+   for(var i = 0; i < length; ++i){
+        str += randomChar();
+   }
+   return str;
 }
 
 export default withStyles(styles, modalStyle)(CheckoutModal);
