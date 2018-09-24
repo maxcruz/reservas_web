@@ -6,10 +6,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+import moment from 'moment';
 
-const products = [
-  { name: 'Reserva Cancha 4', desc: '2018-24-18 10:00 AM - 2018-24-18 11:00 AM', price: '$120.000' },
-];
+const product = {
+  name: 'Reserva Cancha 4',
+  price: '$120.000'
+};
 const addresses = ['max.raul@gmail.com'];
 const payments = [
   { name: 'Tipo', detail: 'Visa' },
@@ -32,18 +34,24 @@ const styles = theme => ({
 
 function PaymentReview(props) {
   const { classes } = props;
+  const { slotInfo } = props;
+
+  product.desc = moment(slotInfo.start).format('DD-MM-YYYY');
+  product.desc += ' '
+  product.desc += moment(slotInfo.start).format('h:mm:ss A');
+  product.desc += ' - '
+  product.desc += moment(slotInfo.end).format('h:mm:ss A');
+  
   return (
     <React.Fragment>
       <Typography variant="title" gutterBottom>
         Resumen
       </Typography>
       <List disablePadding>
-        {products.map(product => (
           <ListItem className={classes.listItem} key={product.name}>
             <ListItemText primary={product.name} secondary={product.desc} />
             <Typography variant="body2">{product.price}</Typography>
           </ListItem>
-        ))}
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subheading" className={classes.total}>
