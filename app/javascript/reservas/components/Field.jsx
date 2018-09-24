@@ -83,12 +83,6 @@ const events = [
     color: "azure"
   },
   {
-    title: "Click for Creative Tim",
-    start: new Date(y, m, 21),
-    end: new Date(y, m, 22),
-    color: "orange"
-  },
-  {
     title: "Click for Google",
     start: new Date(y, m, 21),
     end: new Date(y, m, 22),
@@ -103,7 +97,9 @@ class Field extends React.Component {
     this.state = {
       events: events,
       checkout: false,
-      view: 'month'
+      view: 'month',
+      selectedSlot: null,
+      selectedDate: new Date()
     };
   }
 
@@ -113,11 +109,16 @@ class Field extends React.Component {
 
   openCheckoutModal(slotInfo) {
     if (slotInfo.start == slotInfo.end && this.state.view != 'day') {
-      this.setState({ view:'day' });
+      this.setState({
+        view:'day',
+        selectedDate: slotInfo.start,
+      });
       return;
     }
-    console.log(slotInfo);
-    this.setState({ checkout: true });
+    this.setState({
+      checkout: true,
+      selectedSlot: slotInfo
+    });
   }
 
   addNewEvent(e, slotInfo) {
@@ -222,6 +223,7 @@ class Field extends React.Component {
                     events={this.state.events}
                     style={{ height: '80vh' }}
                     defaultView="month"
+                    date={this.state.selectedDate}
                     timeslots={1}
                     step={60}
                     onView={view => {
