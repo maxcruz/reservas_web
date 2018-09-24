@@ -12,30 +12,31 @@ import IconButton from '@material-ui/core/IconButton';
 import BackIcon from '@material-ui/icons/KeyboardBackspace';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import SweetAlert from "react-bootstrap-sweetalert";
-import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import GridContainer from "material-dashboard/components/Grid/GridContainer.jsx";
+import GridItem from "material-dashboard/components/Grid/GridItem.jsx";
+import Card from "material-dashboard/components/Card/Card.jsx";
+import CardHeader from "material-dashboard/components/Card/CardHeader.jsx";
+import CardIcon from "material-dashboard/components/Card/CardIcon.jsx";
+import CardBody from "material-dashboard/components/Card/CardBody.jsx";
+import CardFooter from "material-dashboard/components/Card/CardFooter.jsx";
+import MoneyIcon from '@material-ui/icons/AttachMoney';
+import PlayerIcon from '@material-ui/icons/DirectionsRun'
+import StoreIcon from "@material-ui/icons/Store";
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
 const stylesMain = theme => ({
-  mainTitle: {
-    backgroundColor: theme.palette.grey[800],
-    color: theme.palette.common.white,
-    marginBottom: theme.spacing.unit * 4,
+  cardTitle: {
+    color: 'grey',
+    textAlign: 'center',
   },
-  mainTitleContent: {
-    padding: `${theme.spacing.unit * 6}px`,
-    [theme.breakpoints.up('md')]: {
-      paddingRight: 0,
-    },
-  },
-  card: {
-    margin: '10px',
+  stats: {
+    color: 'grey',
+    fontSize: '14pt',
   },
 });
 
@@ -170,45 +171,80 @@ class Field extends React.Component {
               <BackIcon />
             </IconButton>
             <Typography variant="title" color="inherit">
-              Reservar
+              Cancha #4
             </Typography>
           </Toolbar>
         </AppBar>
         <main>
-          <Paper className={classes.mainTitle}>
-            <div className={classes.mainTitleContent}>
-              <Typography
-                variant="display1"
-                color="inherit"
-                gutterBottom>
-                Cancha #4
-              </Typography>
-              <Typography variant="subheading" color="inherit">
-                Techada: Si
-              </Typography>
-              <Typography variant="subheading" color="inherit">
-                Tamaño: 11
-              </Typography>
-            </div>
-          </Paper>
-          <Card className={classes.card}>
-            <CardContent>
-              <BigCalendar
-                selectable
-                localizer={localizer}
-                events={this.state.events}
-                defaultView="month"
-                timeslots={1}
-                step={60}
-                views={['month', 'week', 'day']}
-
-
-                onSelectEvent={event => this.selectedEvent(event)}
-                onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
-                eventPropGetter={this.eventColors}
-                />
-            </CardContent>
-          </Card>
+          <br />
+          <GridContainer spacing={16} justify="center">
+          <GridItem lg={3}>
+            <Card>
+              <CardHeader color="warning" stats icon>
+                <CardIcon color="warning">
+                  <MoneyIcon />
+                </CardIcon>
+                <h2 className={classes.cardTitle}>$120,000</h2>
+              </CardHeader>
+              <CardFooter stats>
+                <div className={classes.stats}>
+                  Precio
+                </div>
+              </CardFooter>
+            </Card>
+          </GridItem>
+          <GridItem lg={3}>
+            <Card>
+              <CardHeader color="success" stats icon>
+                <CardIcon color="success">
+                  <StoreIcon />
+                </CardIcon>
+                <h2 className={classes.cardTitle}>Si</h2>
+              </CardHeader>
+              <CardFooter stats>
+                <div className={classes.stats}>
+                  Techada
+                </div>
+              </CardFooter>
+            </Card>
+          </GridItem>
+          <GridItem lg={3}>
+            <Card>
+              <CardHeader color="danger" stats icon>
+                <CardIcon color="danger">
+                  <PlayerIcon />
+                </CardIcon>
+                <h2 className={classes.cardTitle}>11</h2>
+              </CardHeader>
+              <CardFooter stats>
+                <div className={classes.stats}>
+                  Jugadores
+                </div>
+              </CardFooter>
+            </Card>
+          </GridItem>
+        </GridContainer>
+          <GridContainer justify="center">
+            <GridItem xs={12} sm={12} md={10}>
+              <Card>
+                <CardBody calendar>
+                  <BigCalendar
+                    selectable
+                    localizer={localizer}
+                    events={this.state.events}
+                    style={{ height: '80vh' }}
+                    defaultView="month"
+                    timeslots={1}
+                    step={60}
+                    views={['month', 'week', 'day']}
+                    onSelectEvent={event => this.selectedEvent(event)}
+                    onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
+                    eventPropGetter={this.eventColors}
+                    />
+                </CardBody>
+              </Card>
+            </GridItem>
+          </GridContainer>
         </main>
       </React.Fragment>
     );
