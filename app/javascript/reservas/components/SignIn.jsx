@@ -56,12 +56,12 @@ function SignIn(props) {
             <LockIcon />
           </Avatar>
           <Typography variant="headline">
-            Sign in
+            Ingresar
           </Typography>
           <form className={classes.form}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">
-                Email Address
+                Correo
               </InputLabel>
               <Input
                 id="email"
@@ -85,7 +85,7 @@ function SignIn(props) {
               color="primary"
               className={classes.submit}
               >
-              Sign in
+              Ingresar
             </Button>
             <Button
               fullWidth
@@ -94,7 +94,7 @@ function SignIn(props) {
               href="/"
               className={classes.submit}
               >
-              Cancel
+              Cancelar
             </Button>
           </form>
         </Paper>

@@ -63,35 +63,75 @@ var d = today.getDate();
 const events = [
   {
     title: "RESERVED",
-    start: new Date(y, m, 1),
-    end: new Date(y, m, 1),
+    start: new Date(y, m, 1, 16, 0, 0),
+    end: new Date(y, m, 1, 17, 0, 0),
   },
   {
     title: "RESERVED",
-    start: new Date(y, m, d - 1, 10, 30),
-    end: new Date(y, m, d - 1, 11, 30),
+    start: new Date(y, m, 5, 15, 0, 0),
+    end: new Date(y, m, 5, 16, 0, 0),
   },
   {
     title: "RESERVED",
-    start: new Date(y, m, d + 7, 12, 0),
-    end: new Date(y, m, d + 7, 14, 0),
+    start: new Date(y, m, 17, 9, 0, 0),
+    end: new Date(y, m, 17, 10, 0, 0),
+  },
+  {
+    title: "RESERVED",
+    start: new Date(y, m, 20, 11, 0, 0),
+    end: new Date(y, m, 20, 12, 0, 0),
+  },
+  {
+    title: "RESERVED",
+    start: new Date(y, m, 28, 14, 0, 0),
+    end: new Date(y, m, 28, 15, 0, 0),
+  },
+  {
+    title: "RESERVED",
+    start: new Date(y, m, 4, 16, 0, 0),
+    end: new Date(y, m, 4, 17, 0, 0),
+  },
+  {
+    title: "RESERVED",
+    start: new Date(y, m, 11, 18, 0, 0),
+    end: new Date(y, m, 11, 19, 0, 0),
+  },
+  {
+    title: "RESERVED",
+    start: new Date(y, m, 15, 21, 0, 0),
+    end: new Date(y, m, 15, 22, 0, 0),
+  },
+  {
+    title: "RESERVED",
+    start: new Date(y, m, 8, 16, 0, 0),
+    end: new Date(y, m, 8, 17, 0, 0),
   },
   {
     title: "PROMO",
-    start: new Date(y, m, d - 2),
-    end: new Date(y, m, d - 2),
-    isPromo: true,
+    start: new Date(y, m, 2, 9, 0, 0),
+    end: new Date(y, m, 2, 12, 0, 0),
+    isPromo: true
   },
   {
-    title: " RESERVED",
-    start: new Date(y, m, d + 1, 19, 0),
-    end: new Date(y, m, d + 1, 22, 30),
+    title: "PROMO",
+    start: new Date(y, m, 9, 9, 0, 0),
+    end: new Date(y, m, 9, 12, 0, 0),
+    isPromo: true
   },
   {
-    title: "RESERVED",
-    start: new Date(y, m, 21),
-    end: new Date(y, m, 22),
-  }
+    title: "PROMO",
+    start: new Date(y, m, 16, 9, 0, 0),
+    end: new Date(y, m, 16, 12, 0, 0),
+    isPromo: true
+  },
+  {
+    title: "PROMO",
+    start: new Date(y, m, 23, 9, 0, 0),
+    end: new Date(y, m, 23, 12, 0, 0),
+    isPromo: true
+  },
+
+
 ];
 
 class Field extends React.Component {
@@ -147,7 +187,7 @@ class Field extends React.Component {
         newStyle.backgroundColor = "pink"
       }
       if (event.isMine){
-        newStyle.backgroundColor = "indigo"
+        newStyle.backgroundColor = "blue"
       }
       return { className: "", style: newStyle };
   }
@@ -211,7 +251,7 @@ class Field extends React.Component {
                   <CardIcon color="danger">
                     <PlayerIcon />
                   </CardIcon>
-                  <h2 className={classes.cardTitle}>11</h2>
+                  <h2 className={classes.cardTitle}>9</h2>
                 </CardHeader>
                 <CardFooter stats>
                   <div className={classes.stats}>
@@ -249,6 +289,8 @@ class Field extends React.Component {
                     date={this.state.selectedDate}
                     timeslots={1}
                     step={60}
+                    min={new Date(2017, 10, 0, 9, 0, 0)}
+                    max={new Date(2017, 10, 0, 22, 0, 0)}
                     onView={view => {
                       this.setState({
                         view: view
