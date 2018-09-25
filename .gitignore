@@ -16,6 +16,7 @@
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
+config/database.yml
 
 /node_modules
 /yarn-error.log
@@ -30,3 +31,6 @@
 /node_modules
 yarn-debug.log*
 .yarn-integrity
+
+package-lock.json
+yarn.lock
