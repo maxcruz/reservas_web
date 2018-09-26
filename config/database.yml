@@ -18,7 +18,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   username: reservas-app
-  password: <%= ENV['RESERVAS-APP_DATABASE_PASSWORD'] %> 
+  password: <%= ENV['RESERVAS_WEB_DATABASE_PASSWORD'] %>
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -34,7 +34,7 @@ development:
   username: reservas-app
 
   # The password associated with the postgres role (username).
-  password: <%= ENV['RESERVAS-APP_DATABASE_PASSWORD'] %>
+  password: <%= ENV['RESERVAS_WEB_DATABASE_PASSWORD'] %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -84,4 +84,4 @@ production:
   <<: *default
   database: reservas-app_production
   username: reservas-app
-  password: <%= ENV['RESERVAS-APP_DATABASE_PASSWORD'] %>
+  password: <%= ENV['RESERVAS_WEB_DATABASE_PASSWORD'] %>
