@@ -1,24 +1,60 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+MVP of a sport center booking system. Built using Rails, React.
 
-Things you may want to cover:
+## System dependencies
+- Rails 5.2.1
+- Ruby 2.5.1
+- PostgreSQL 10.5 (similar versions also works)
+- Foreman 0.85.0 (gem install foreman)
 
-* Ruby version
+## Database initialization
 
-* System dependencies
+Install PostgreSQL
+```
+# Linux
+sudo apt-get install postgresql
 
-* Configuration
+# OSX
+brew install postgresql
+```
 
-* Database creation
+Create a role
+```
+# Linux
+sudo su - postgres
 
-* Database initialization
+#OSX
+psql postgres
+```
+```
+postgres=# CREATE ROLE "reservas-app" WITH LOGIN PASSWORD 'My Secret Password';
+postgres=# ALTER ROLE "reservas-app" CREATEDB;
+postgres=# \q
+```
+Setup environment variable
+```
+export RESERVAS_WEB_DATABASE_PASSWORD="My Secret Password"
+```
 
-* How to run the test suite
+## Setup project
 
-* Services (job queues, cache servers, search engines, etc.)
+Clone respository
+```
+git clone git@github.com:maxcruz/reservas_web.git
+cd reservas_web
+```
 
-* Deployment instructions
+Setup
+```
+bundle install
+yarn install
+rake db:create
+rake db:migrate
+rake db:seed
+```
 
-* ...
+Run project
+```
+foreman start -f Procfile.dev -p 3000
+```
