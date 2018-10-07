@@ -17,13 +17,8 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-<<<<<<< HEAD
-  username: postgres
-  password: 1234
-=======
   username: reservas-app
   password: <%= ENV['RESERVAS_WEB_DATABASE_PASSWORD'] %>
->>>>>>> 7be854dc24e7f18f9fcb722e16f4e7ba8bdb3705
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -36,17 +31,9 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-<<<<<<< HEAD
-  #username: reservas-app
-
-  # The password associated with the postgres role (username).
-  #password:
-=======
   username: reservas-app
-
   # The password associated with the postgres role (username).
   password: <%= ENV['RESERVAS_WEB_DATABASE_PASSWORD'] %>
->>>>>>> 7be854dc24e7f18f9fcb722e16f4e7ba8bdb3705
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
