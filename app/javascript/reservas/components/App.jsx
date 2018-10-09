@@ -1,15 +1,11 @@
 import React from 'react';
-
-import {
-  BrowserRouter as Router,
-  Route
-} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import Place from './Place';
 import SignIn from './SignIn';
 import Field from './Field';
 
-const App = (props) => (
+const App = () => (
   <Router>
     <div>
       <Route

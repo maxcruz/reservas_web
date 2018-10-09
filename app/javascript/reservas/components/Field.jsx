@@ -118,8 +118,6 @@ const events = [
     end: new Date(y, m, 23, 12, 0, 0),
     isPromo: true
   },
-
-
 ];
 
 class Field extends React.Component {

@@ -14,17 +14,17 @@ import PaymentReview from './PaymentReview';
 
 import modalStyle from "material-dashboard/assets/jss/material-dashboard-pro-react/modalStyle.jsx";
 
-const styles = () => ({
-  buttons: {
-    margin: '5px',
-    textAlign: 'left',
-  },
-  buttonContained: {
-    marginLeft: '10px',
-  }
-});
-
 const steps = ['Pago', 'Confirmar'];
+
+const styles = () => ({
+    buttons: {
+        margin: '5px',
+        textAlign: 'left',
+    },
+    buttonContained: {
+        marginLeft: '10px',
+    }
+});
 
 class CheckoutModal extends React.Component {
 
