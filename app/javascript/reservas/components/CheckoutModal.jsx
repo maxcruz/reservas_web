@@ -1,6 +1,5 @@
 import React from 'react';
 import withStyles from "@material-ui/core/styles/withStyles";
-import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -15,7 +14,7 @@ import PaymentReview from './PaymentReview';
 
 import modalStyle from "material-dashboard/assets/jss/material-dashboard-pro-react/modalStyle.jsx";
 
-const styles = theme => ({
+const styles = () => ({
   buttons: {
     margin: '5px',
     textAlign: 'left',
@@ -64,11 +63,11 @@ class CheckoutModal extends React.Component {
 
   handleNext = () => {
     const { activeStep } = this.state;
-    if (activeStep == steps.length - 1) {
+    if (activeStep === steps.length - 1) {
       let reservation = Math.random().toString(36).slice(2).toUpperCase();
       this.setState({ code: reservation });
     }
-    if (activeStep == steps.length) {
+    if (activeStep === steps.length) {
       this.setState({ show: false });
       this.props.onClose(this.state.code, this.props.slotInfo);
       return;
@@ -78,19 +77,14 @@ class CheckoutModal extends React.Component {
 
   handleBack = () => {
     const { activeStep } = this.state;
-    if (activeStep == 0) {
+    if (activeStep === 0) {
       this.setState({ show: false });
       this.props.onClose();
       return;
     }
     this.setState({ activeStep: activeStep - 1 });
   };
-
-  handleReset = () => {
-    this.setState({ activeStep: 0 });
-  };
-
-  render(){
+    render(){
 
     const { classes } = this.props;
     const { activeStep } = this.state;

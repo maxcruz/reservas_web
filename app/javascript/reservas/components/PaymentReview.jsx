@@ -37,9 +37,9 @@ function PaymentReview(props) {
   const { slotInfo } = props;
 
   product.desc = moment(slotInfo.start).format('DD-MM-YYYY');
-  product.desc += ' '
+  product.desc += ' ';
   product.desc += moment(slotInfo.start).format('h:mm:ss A');
-  product.desc += ' - '
+  product.desc += ' - ';
   product.desc += moment(slotInfo.end).format('h:mm:ss A');
   
   return (

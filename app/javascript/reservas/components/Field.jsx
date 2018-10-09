@@ -1,20 +1,17 @@
+// noinspection ES6UnusedImports
 import styles from './Field.scss'
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import BackIcon from '@material-ui/icons/KeyboardBackspace';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
-import SweetAlert from "react-bootstrap-sweetalert";
-import CardContent from '@material-ui/core/CardContent';
 import GridContainer from "material-dashboard/components/Grid/GridContainer.jsx";
 import GridItem from "material-dashboard/components/Grid/GridItem.jsx";
 import Card from "material-dashboard/components/Card/Card.jsx";
@@ -26,21 +23,13 @@ import MoneyIcon from '@material-ui/icons/AttachMoney';
 import PlayerIcon from '@material-ui/icons/DirectionsRun'
 import StoreIcon from "@material-ui/icons/Store";
 import Chip from '@material-ui/core/Chip';
-import { withTheme } from '@material-ui/core/styles';
-
-import teal from '@material-ui/core/colors/teal';
 import grey from '@material-ui/core/colors/grey';
-import green from '@material-ui/core/colors/green';
 
 import CheckoutModal from './CheckoutModal';
 
-const teal500 = teal[500];
-const grey500 = grey[500];
-const green500 = green[500];
-
 const localizer = BigCalendar.momentLocalizer(moment);
 
-const stylesMain = theme => ({
+const stylesMain = () => ({
   cardTitle: {
     color: 'grey',
     textAlign: 'center',
@@ -55,10 +44,9 @@ const stylesMain = theme => ({
   }
 });
 
-var today = new Date();
-var y = today.getFullYear();
-var m = today.getMonth();
-var d = today.getDate();
+const today = new Date();
+const y = today.getFullYear();
+const m = today.getMonth();
 
 const events = [
   {
@@ -147,12 +135,12 @@ class Field extends React.Component {
     };
   }
 
-  selectedEvent(event) {
+  static selectedEvent(event) {
     alert(event.title);
   }
 
   openCheckoutModal(slotInfo) {
-    if (slotInfo.start == slotInfo.end && this.state.view != 'day') {
+    if (slotInfo.start === slotInfo.end && this.state.view !== 'day') {
       this.setState({
         view:'day',
         selectedDate: slotInfo.start,
@@ -166,8 +154,8 @@ class Field extends React.Component {
   }
 
   addNewEvent(title, slotInfo) {
-    var newEvents = this.state.events;
-    newEvents.push({
+      const newEvents = this.state.events;
+      newEvents.push({
       title: title,
       start: slotInfo.start,
       end: slotInfo.end,
@@ -176,7 +164,7 @@ class Field extends React.Component {
     this.setState({ events: newEvents });
   }
 
-  eventColors(event, start, end, isSelected) {
+  static eventColors(event) {
     let newStyle = {
         backgroundColor: "lightgrey",
         color: 'black',
@@ -303,9 +291,9 @@ class Field extends React.Component {
                         selectedDate: day
                       });
                     }}
-                    onSelectEvent={event => this.selectedEvent(event)}
+                    onSelectEvent={event => Field.selectedEvent(event)}
                     onSelectSlot={slotInfo => this.openCheckoutModal(slotInfo)}
-                    eventPropGetter={this.eventColors}
+                    eventPropGetter={Field.eventColors}
                     />
                 </CardBody>
               </Card>
@@ -316,7 +304,7 @@ class Field extends React.Component {
           <CheckoutModal
             show={true}
             onClose={(title, slotInfo) => {
-              if (title != undefined && slotInfo != undefined) {
+              if (title !== undefined && slotInfo !== undefined) {
                   this.addNewEvent(title, slotInfo);
               }
               this.setState({ checkout: false });
