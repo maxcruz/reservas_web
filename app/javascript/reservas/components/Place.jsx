@@ -153,11 +153,6 @@ class Place extends React.Component {
                   </Grid>
                 </Grid>
               </div>
-              <div className={classes.heroButtons}>
-                <Button variant="outlined" color="primary">
-                  Editar
-                </Button>
-              </div>
             </div>
           </div>
           <div className={classNames(classes.layout, classes.cardGrid)}>
@@ -192,9 +187,6 @@ class Place extends React.Component {
                         color="primary"
                         href="/field">
                         Reservar
-                      </Button>
-                      <Button size="small" color="primary">
-                        Editar
                       </Button>
                     </CardActions>
                   </Card>

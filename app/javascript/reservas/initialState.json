@@ -1,0 +1,68 @@
+{
+  "authentication": {
+    "id": "",
+    "email": ""
+  },
+  "place": {
+    "id": "",
+    "name": "",
+    "address": "",
+    "phone": "",
+    "email": "",
+    "parking": false,
+    "fields": [
+      {
+        "id": "",
+        "image": "",
+        "number": 0,
+        "size": 5,
+        "roof": false
+      }
+    ]
+  },
+  "field": {
+    "id": "",
+    "image": "",
+    "number": 0,
+    "size": 5,
+    "roof": false,
+    "price": 0.0,
+    "promos": [
+      {
+        "price": 0.0,
+        "start": "",
+        "end": ""
+      }
+    ],
+    "bookings": [
+      {
+        "id": "",
+        "title": "title",
+        "start": "",
+        "end": "",
+        "owner": false
+      }
+    ]
+  },
+  "new_booking": {
+    "id": "",
+    "field_id": "",
+    "field_number": 0,
+    "slots": [
+      {
+        "price": 0.0,
+        "start": "",
+        "end": ""
+      }
+    ],
+    "user": "",
+    "payment": {
+      "name": "",
+      "number": 0,
+      "expire": 0,
+      "ccv": 0,
+      "type": ""
+    }
+  },
+  "errors": ["Something went wrong"]
+}

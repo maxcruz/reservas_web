@@ -1,0 +1,22 @@
+export const C = {
+    LOGIN: "LOGIN",
+    LOGOUT: "LOGOUT",
+    FETCH_PLACE: "FETCH_PLACE",
+
+    LOAD_FIELD: "LOAD_FIELD",
+    FETCH_RESERVATIONS:"FETCH_RESERVATIONS",
+    FETCH_PROMOS: "FETCH_PROMOS",
+
+    BOOK: "BOOK",
+    PURCHASE_ADD_CARD: "PURCHASE_ADD_CARD",
+    PURCHASE_CONFIRM: "PURCHASE_CONFIRM",
+
+    ADD_ERROR: "ADD_ERROR",
+    CLEAR_ERROR: "CLEAR_ERROR"
+};
+
+export const S = {
+    BOOKING_STORE: "redux-store"
+};
+
+export const URL = "http://localhost:3000/api/";
