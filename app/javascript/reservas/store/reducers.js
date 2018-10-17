@@ -12,7 +12,7 @@ export const authentication = (state=null, action) => {
     }
 };
 
-export const place = (state=null, action) =>
+export const place = (state={}, action) =>
     (action.type === C.FETCH_PLACE) ? action.payload : state;
 
 export const field = (state=null, action) => {

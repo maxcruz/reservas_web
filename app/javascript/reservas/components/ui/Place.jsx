@@ -70,12 +70,11 @@ const styles = theme => ({
     },
 });
 
-const cards = [1, 2, 3, 4, 5, 6];
-
 class Place extends React.Component {
 
     render() {
         const {classes, place} = this.props;
+        const {fields} = place;
         return (
             <React.Fragment>
                 <CssBaseline/>
@@ -97,7 +96,6 @@ class Place extends React.Component {
                     </Toolbar>
                 </AppBar>
                 <main>
-
                     <div className={classes.heroUnit}>
                         <div className={classes.heroContent}>
                             <Typography
@@ -154,29 +152,27 @@ class Place extends React.Component {
                         </div>
                     </div>
                     <div className={classNames(classes.layout, classes.cardGrid)}>
-
                         <Grid container spacing={40}>
-                            {cards.map(card => (
-                                <Grid item key={card} sm={6} md={4} lg={3}>
+                            {fields.map(field => (
+                                <Grid item key={field.number} sm={6} md={4} lg={3}>
+                                    {console.log(field)}
                                     <Card className={classes.card}>
                                         <CardMedia
                                             className={classes.cardMedia}
-                                            image="http://localhost:3000/indoor-soccer.jpg"
-                                            // eslint-disable-line max-len
-                                            title="Image title"
-                                        />
+                                            image={field.image}
+                                            title="Image title"/>
                                         <CardContent className={classes.cardContent}>
                                             <Typography
                                                 gutterBottom
                                                 variant="headline"
                                                 component="h2">
-                                                Cancha {card}
+                                                Cancha {field.number}
                                             </Typography>
                                             <Typography>
-                                                Tamaño: 9
+                                                Tamaño: {field.size}
                                             </Typography>
                                             <Typography>
-                                                Techada: Si
+                                                Techada: {field.roof ? 'Si' : 'No'}
                                             </Typography>
                                         </CardContent>
                                         <CardActions>
@@ -193,7 +189,6 @@ class Place extends React.Component {
                         </Grid>
                     </div>
                 </main>
-
                 <footer className={classes.footer}>
                     <Typography
                         variant="title"
@@ -209,7 +204,6 @@ class Place extends React.Component {
                         Copyright (c) 2018
                     </Typography>
                 </footer>
-
             </React.Fragment>
         );
     }
