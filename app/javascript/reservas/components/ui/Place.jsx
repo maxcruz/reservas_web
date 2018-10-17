@@ -20,6 +20,27 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import storeFactory from '../store'
+import {fetchPlace} from '../actions'
+import { connect } from 'react-redux'
+
+const mapStateToProps = (state) =>
+    ({
+        place: state.place
+    });
+
+const mapDispatchToProps = dispatch =>
+    ({
+        fetchPlace() {
+            dispatch(
+                fetchPlace()
+            )
+        }
+    });
+
+const store = storeFactory();
+store.dispatch(fetchPlace());
+const place = store.getState().place;
 
 const styles = theme => ({
   icon: {
@@ -107,14 +128,14 @@ class Place extends React.Component {
                 align="center"
                 color="textPrimary"
                 gutterBottom>
-                La 10 Indoor Soccer
+                  {place.name}
               </Typography>
               <Typography
                 variant="title"
                 align="center"
                 color="textSecondary"
                 paragraph>
-                Calle 108 # 17 A-30 Bogotá, Colombia
+                  {place.address}
               </Typography>
               <div>
                 <Grid container spacing={0}>
@@ -124,7 +145,7 @@ class Place extends React.Component {
                         <PhoneIcon />
                       </ListItemIcon>
                       <ListItemText
-                        primary="(57) 310 294 2527"
+                        primary={place.phone}
                         secondary="Teléfono"
                         />
                     </ListItem>
@@ -135,7 +156,7 @@ class Place extends React.Component {
                         <EmailIcon />
                       </ListItemIcon>
                       <ListItemText
-                        primary="fiestas@la10indoor.com"
+                        primary={place.email}
                         secondary="Correo"
                         />
                     </ListItem>
@@ -146,7 +167,7 @@ class Place extends React.Component {
                         <CarIcon />
                       </ListItemIcon>
                       <ListItemText
-                        primary="Si"
+                        primary={place.parking ? 'Si' : 'No'}
                         secondary="Parqueo"
                         />
                     </ListItem>
@@ -221,4 +242,4 @@ Place.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Place);
+export default connect(mapStateToProps)(withStyles(styles)(Place));
