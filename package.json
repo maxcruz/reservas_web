@@ -7,6 +7,7 @@
     "@rails/webpacker": "3.5",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
+    "isomorphic-fetch": "^2.2.1",
     "localizer": "^0.2.4",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
@@ -15,10 +16,10 @@
     "react-big-calendar": "^0.20.1",
     "react-bootstrap-sweetalert": "^4.4.1",
     "react-dom": "^16.5.2",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
-    "isomorphic-fetch": "^2.2.1"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "webpack-dev-server": "2.11.2"

@@ -20,226 +20,203 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import storeFactory from '../store'
-import {fetchPlace} from '../actions'
-import { connect } from 'react-redux'
-
-const mapStateToProps = (state) =>
-    ({
-        place: state.place
-    });
-
-const mapDispatchToProps = dispatch =>
-    ({
-        fetchPlace() {
-            dispatch(
-                fetchPlace()
-            )
-        }
-    });
-
-const store = storeFactory();
-store.dispatch(fetchPlace());
-const place = store.getState().place;
 
 const styles = theme => ({
-  icon: {
-    marginRight: theme.spacing.unit * 2,
-  },
-  title: {
-    flexGrow: 1,
-  },
-  heroUnit: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  heroContent: {
-    maxWidth: 800,
-    margin: '0 auto',
-    padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`,
-  },
-  heroButtons: {
-    textAlign:'center',
-    marginTop: theme.spacing.unit * 4,
-  },
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
-      width: 1100,
-      marginLeft: 'auto',
-      marginRight: 'auto',
+    icon: {
+        marginRight: theme.spacing.unit * 2,
     },
-  },
-  cardGrid: {
-    padding: `${theme.spacing.unit * 8}px 0`,
-  },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing.unit * 6,
-  },
+    title: {
+        flexGrow: 1,
+    },
+    heroUnit: {
+        backgroundColor: theme.palette.background.paper,
+    },
+    heroContent: {
+        maxWidth: 800,
+        margin: '0 auto',
+        padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`,
+    },
+    heroButtons: {
+        textAlign: 'center',
+        marginTop: theme.spacing.unit * 4,
+    },
+    layout: {
+        width: 'auto',
+        marginLeft: theme.spacing.unit * 3,
+        marginRight: theme.spacing.unit * 3,
+        [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
+            width: 1100,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+        },
+    },
+    cardGrid: {
+        padding: `${theme.spacing.unit * 8}px 0`,
+    },
+    card: {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    cardMedia: {
+        paddingTop: '56.25%', // 16:9
+    },
+    cardContent: {
+        flexGrow: 1,
+    },
+    footer: {
+        backgroundColor: theme.palette.background.paper,
+        padding: theme.spacing.unit * 6,
+    },
 });
 
 const cards = [1, 2, 3, 4, 5, 6];
 
 class Place extends React.Component {
 
-  render() {
+    render() {
+        const {classes, place} = this.props;
+        return (
+            <React.Fragment>
+                <CssBaseline/>
+                <AppBar position="static">
+                    <Toolbar>
+                        <StreetViewIcon className={classes.icon}/>
+                        <Typography
+                            variant="title"
+                            color="inherit"
+                            className={classes.title}>
+                            Reservas App
+                        </Typography>
+                        <Button
+                            variant="flat"
+                            color="inherit"
+                            href="/login">
+                            Ingresar
+                        </Button>
+                    </Toolbar>
+                </AppBar>
+                <main>
 
-    const { classes } = this.props;
+                    <div className={classes.heroUnit}>
+                        <div className={classes.heroContent}>
+                            <Typography
+                                variant="display3"
+                                align="center"
+                                color="textPrimary"
+                                gutterBottom>
+                                {place.name}
+                            </Typography>
+                            <Typography
+                                variant="title"
+                                align="center"
+                                color="textSecondary"
+                                paragraph>
+                                {place.address}
+                            </Typography>
+                            <div>
+                                <Grid container spacing={0}>
+                                    <Grid item xs={4}>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <PhoneIcon/>
+                                            </ListItemIcon>
+                                            <ListItemText
+                                                primary={place.phone}
+                                                secondary="Teléfono"
+                                            />
+                                        </ListItem>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <EmailIcon/>
+                                            </ListItemIcon>
+                                            <ListItemText
+                                                primary={place.email}
+                                                secondary="Correo"
+                                            />
+                                        </ListItem>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <CarIcon/>
+                                            </ListItemIcon>
+                                            <ListItemText
+                                                primary={place.parking ? 'Si' : 'No'}
+                                                secondary="Parqueo"
+                                            />
+                                        </ListItem>
+                                    </Grid>
+                                </Grid>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={classNames(classes.layout, classes.cardGrid)}>
 
-    return (
-      <React.Fragment>
-        <CssBaseline />
-        <AppBar position="static">
-          <Toolbar>
-            <StreetViewIcon className={classes.icon} />
-            <Typography
-              variant="title"
-              color="inherit"
-              className={classes.title}>
-              Reservas App
-            </Typography>
-            <Button
-              variant="flat"
-              color="inherit"
-              href="/login">
-              Ingresar
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <main>
+                        <Grid container spacing={40}>
+                            {cards.map(card => (
+                                <Grid item key={card} sm={6} md={4} lg={3}>
+                                    <Card className={classes.card}>
+                                        <CardMedia
+                                            className={classes.cardMedia}
+                                            image="http://localhost:3000/indoor-soccer.jpg"
+                                            // eslint-disable-line max-len
+                                            title="Image title"
+                                        />
+                                        <CardContent className={classes.cardContent}>
+                                            <Typography
+                                                gutterBottom
+                                                variant="headline"
+                                                component="h2">
+                                                Cancha {card}
+                                            </Typography>
+                                            <Typography>
+                                                Tamaño: 9
+                                            </Typography>
+                                            <Typography>
+                                                Techada: Si
+                                            </Typography>
+                                        </CardContent>
+                                        <CardActions>
+                                            <Button
+                                                size="small"
+                                                color="primary"
+                                                href="/field">
+                                                Reservar
+                                            </Button>
+                                        </CardActions>
+                                    </Card>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </div>
+                </main>
 
-          <div className={classes.heroUnit}>
-            <div className={classes.heroContent}>
-              <Typography
-                variant="display3"
-                align="center"
-                color="textPrimary"
-                gutterBottom>
-                  {place.name}
-              </Typography>
-              <Typography
-                variant="title"
-                align="center"
-                color="textSecondary"
-                paragraph>
-                  {place.address}
-              </Typography>
-              <div>
-                <Grid container spacing={0}>
-                  <Grid item xs={4}>
-                    <ListItem>
-                      <ListItemIcon>
-                        <PhoneIcon />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={place.phone}
-                        secondary="Teléfono"
-                        />
-                    </ListItem>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <ListItem>
-                      <ListItemIcon>
-                        <EmailIcon />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={place.email}
-                        secondary="Correo"
-                        />
-                    </ListItem>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <ListItem>
-                      <ListItemIcon>
-                        <CarIcon />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={place.parking ? 'Si' : 'No'}
-                        secondary="Parqueo"
-                        />
-                    </ListItem>
-                  </Grid>
-                </Grid>
-              </div>
-            </div>
-          </div>
-          <div className={classNames(classes.layout, classes.cardGrid)}>
+                <footer className={classes.footer}>
+                    <Typography
+                        variant="title"
+                        align="center"
+                        gutterBottom>
+                        Sistema de reserva de espacios deportivos.
+                    </Typography>
+                    <Typography
+                        variant="subheading"
+                        align="center"
+                        color="textSecondary"
+                        component="p">
+                        Copyright (c) 2018
+                    </Typography>
+                </footer>
 
-            <Grid container spacing={40}>
-              {cards.map(card => (
-                <Grid item key={card} sm={6} md={4} lg={3}>
-                  <Card className={classes.card}>
-                    <CardMedia
-                      className={classes.cardMedia}
-                      image="http://localhost:3000/indoor-soccer.jpg"
-                      // eslint-disable-line max-len
-                      title="Image title"
-                      />
-                    <CardContent className={classes.cardContent}>
-                      <Typography
-                        gutterBottom
-                        variant="headline"
-                        component="h2">
-                        Cancha {card}
-                      </Typography>
-                      <Typography>
-                        Tamaño: 9
-                      </Typography>
-                      <Typography>
-                        Techada: Si
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button
-                        size="small"
-                        color="primary"
-                        href="/field">
-                        Reservar
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-          </div>
-        </main>
-
-        <footer className={classes.footer}>
-          <Typography
-            variant="title"
-            align="center"
-            gutterBottom>
-            Sistema de reserva de espacios deportivos.
-          </Typography>
-          <Typography
-            variant="subheading"
-            align="center"
-            color="textSecondary"
-            component="p">
-            Copyright (c) 2018
-          </Typography>
-        </footer>
-
-      </React.Fragment>
-    );
-  }
+            </React.Fragment>
+        );
+    }
 }
 
 Place.propTypes = {
-  classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Place));
+export default withStyles(styles)(Place);
