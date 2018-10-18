@@ -38,6 +38,21 @@ export const clearField = () => {
     }
 };
 
+export const fetchPromos = (id) => (dispatch) => {
+    fetch(URL + 'field/' + id + '/promos')
+        .then(response => response.json())
+        .then(promos => {
+            dispatch({
+                type: C.FETCH_PROMOS,
+                payload: promos
+            })
+        })
+        .catch(error => {
+            dispatch(addError(error.message))
+        });
+    return dispatch
+};
+
 export const addError = (message) => {
     return {
         type: C.ADD_ERROR,

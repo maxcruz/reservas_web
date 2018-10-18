@@ -1,5 +1,6 @@
 import Field from '../ui/Field'
 import { connect } from 'react-redux'
+import { fetchPromos } from '../../actions'
 
 const mapStateToProps = (state) =>
     ({
@@ -8,9 +9,9 @@ const mapStateToProps = (state) =>
 
 const mapDispatchToProps = (dispatch) =>
     ({
-        fetchPlace() {
+        fetchPromos(id) {
             dispatch(
-
+                fetchPromos(id)
             )
         }
     });

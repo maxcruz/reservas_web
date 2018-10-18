@@ -8,6 +8,8 @@ export const field = (state={}, action) => {
     switch(action.type) {
         case C.FETCH_FIELD:
             return action.payload;
+        case C.FETCH_PROMOS:
+            return Object.assign({}, state, { promos: action.payload });
         default:
             return state
     }
