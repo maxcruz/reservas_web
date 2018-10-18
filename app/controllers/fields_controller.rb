@@ -8,7 +8,7 @@ class FieldsController < ApplicationController
   end
   
   def promos
-    promos = Promo.find_by(field_id: params[:id])
+    promos = Promo.where(field_id: params[:id])
     render :json => promos.to_json(
         only: [:start, :end, :price]
     ) 
