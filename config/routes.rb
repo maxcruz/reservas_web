@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   scope :api do
       get "/place", to: "places#index"
-    end
+      get '/field/:id' => "fields#find"
+  end
 
   root to: "pages#home"
   get "/login", to: "pages#home"

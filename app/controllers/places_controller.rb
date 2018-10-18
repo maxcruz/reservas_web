@@ -5,7 +5,7 @@ class PlacesController < ApplicationController
     render :json => place.to_json(
         only: [:id, :name, :address, :phone, :email, :parking], 
         :include => {
-            :fields => { only: [:image, :number, :size, :roof] }
+            :fields => { only: [:id, :image, :number, :size, :roof] }
         }
     )
   end
