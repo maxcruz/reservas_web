@@ -112,6 +112,7 @@ class Field extends React.Component {
 
     componentDidMount() {
         this.props.fetchPromos(this.props.field.id);
+        this.props.fetchEvents(this.props.field.id);
     }
 
     static selectedEvent(event) {
@@ -132,6 +133,7 @@ class Field extends React.Component {
         });
     }
 
+    // TODO: REPAIR THIS
     addNewEvent(title, slotInfo) {
         const newEvents = this.state.events;
         newEvents.push({
@@ -146,12 +148,18 @@ class Field extends React.Component {
     getPromos() {
         return (this.props.field.promos) ?
             this.props.field.promos.map(promo => {
-                return {
-                    title: 'PRECIO: ' + promo.price.toLocaleString(),
-                    start: new Date(promo.start),
-                    end: new Date(promo.end),
-                    isPromo: true
-                };
+                promo.start = new Date(promo.start);
+                promo.end = new Date(promo.end);
+                return promo;
+            }) : [];
+    }
+
+    getEvents() {
+        return (this.props.field.events) ?
+            this.props.field.events.map(event => {
+                event.start = new Date(event.start);
+                event.end = new Date(event.end);
+                return event;
             }) : [];
     }
 
@@ -173,7 +181,9 @@ class Field extends React.Component {
 
     render() {
         const {classes, field} = this.props;
-        const events = this.getPromos();
+        const events = this.getEvents();
+        const promos = this.getPromos();
+        const calendar = events.concat(promos);
         if (!field.id) {
             return <Redirect to='/'/>
         }
@@ -264,7 +274,7 @@ class Field extends React.Component {
                                     <BigCalendar
                                         selectable
                                         localizer={localized}
-                                        events={events}
+                                        events={calendar}
                                         style={{height: '80vh'}}
                                         defaultView="month"
                                         date={this.state.selectedDate}

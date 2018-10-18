@@ -10,6 +10,8 @@ export const field = (state={}, action) => {
             return action.payload;
         case C.FETCH_PROMOS:
             return Object.assign({}, state, { promos: action.payload });
+        case C.FETCH_EVENTS:
+            return Object.assign({}, state, { events: action.payload });
         default:
             return state
     }

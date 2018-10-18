@@ -53,6 +53,21 @@ export const fetchPromos = (id) => (dispatch) => {
     return dispatch
 };
 
+export const fetchEvents = (id) => (dispatch) => {
+    fetch(URL + 'field/' + id + '/events')
+        .then(response => response.json())
+        .then(events => {
+            dispatch({
+                type: C.FETCH_EVENTS,
+                payload: events
+            })
+        })
+        .catch(error => {
+            dispatch(addError(error.message))
+        });
+    return dispatch
+};
+
 export const addError = (message) => {
     return {
         type: C.ADD_ERROR,
