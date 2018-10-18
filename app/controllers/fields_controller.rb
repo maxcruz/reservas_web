@@ -9,17 +9,34 @@ class FieldsController < ApplicationController
   
   def promos
     promos = Promo.where(field_id: params[:id])
-    render :json => promos.to_json(
-        only: [:start, :end, :price]
-    ) 
+    processed = promos.map { |promo|
+        price = ActiveSupport::NumberHelper.number_to_delimited(promo.price)
+        {
+            title: "PRECIO $#{price}",
+            start: promo.start,
+            end: promo.end,
+            price: promo.price,
+            isPromo: true
+
+        }
+    }
+    render :json => processed.to_json()
   end
 
   def events
     user = current_user
     events = Event.where(field_id: params[:id])
-    render :json => events.to_json(
-        only: [:start, :end]
-    ) 
+    processed = events.map { |event| 
+        is_mine = user != nil && user.id == event.user_id
+        title = is_mine ? event.code : 'RESERVADO'
+        {
+            title: title,
+            start: event.start,
+            end: event.end,
+            isMine: is_mine
+        } 
+    }
+    render :json => processed.to_json()
   end
 
 end
