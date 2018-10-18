@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import Place from './container/Place';
 import SignIn from './SignIn';
-import Field from './Field';
+import Field from './container/Field';
 
 const App = () => (
   <Router>

@@ -20,6 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import {Redirect} from "react-router-dom";
 
 const styles = theme => ({
     icon: {
@@ -72,145 +73,154 @@ const styles = theme => ({
 
 class Place extends React.Component {
 
+    componentWillMount() {
+        this.props.clearField()
+    }
+
     render() {
-        const {classes, place} = this.props;
+        const {classes, place, field} = this.props;
         const {fields} = place;
+        if (field.id) {
+            return <Redirect to='/field'/>
+        }
         return (
-            <React.Fragment>
-                <CssBaseline/>
-                <AppBar position="static">
-                    <Toolbar>
-                        <StreetViewIcon className={classes.icon}/>
-                        <Typography
-                            variant="title"
-                            color="inherit"
-                            className={classes.title}>
-                            Reservas App
-                        </Typography>
-                        <Button
-                            variant="flat"
-                            color="inherit"
-                            href="/login">
-                            Ingresar
-                        </Button>
-                    </Toolbar>
-                </AppBar>
-                <main>
-                    <div className={classes.heroUnit}>
-                        <div className={classes.heroContent}>
-                            <Typography
-                                variant="display3"
-                                align="center"
-                                color="textPrimary"
-                                gutterBottom>
-                                {place.name}
-                            </Typography>
+            <div>
+                <React.Fragment>
+                    <CssBaseline/>
+                    <AppBar position="static">
+                        <Toolbar>
+                            <StreetViewIcon className={classes.icon}/>
                             <Typography
                                 variant="title"
-                                align="center"
-                                color="textSecondary"
-                                paragraph>
-                                {place.address}
+                                color="inherit"
+                                className={classes.title}>
+                                Reservas App
                             </Typography>
-                            <div>
-                                <Grid container spacing={0}>
-                                    <Grid item xs={4}>
-                                        <ListItem>
-                                            <ListItemIcon>
-                                                <PhoneIcon/>
-                                            </ListItemIcon>
-                                            <ListItemText
-                                                primary={place.phone}
-                                                secondary="Teléfono"
-                                            />
-                                        </ListItem>
+                            <Button
+                                variant="flat"
+                                color="inherit"
+                                href="/login">
+                                Ingresar
+                            </Button>
+                        </Toolbar>
+                    </AppBar>
+                    <main>
+                        <div className={classes.heroUnit}>
+                            <div className={classes.heroContent}>
+                                <Typography
+                                    variant="display3"
+                                    align="center"
+                                    color="textPrimary"
+                                    gutterBottom>
+                                    {place.name}
+                                </Typography>
+                                <Typography
+                                    variant="title"
+                                    align="center"
+                                    color="textSecondary"
+                                    paragraph>
+                                    {place.address}
+                                </Typography>
+                                <div>
+                                    <Grid container spacing={0}>
+                                        <Grid item xs={4}>
+                                            <ListItem>
+                                                <ListItemIcon>
+                                                    <PhoneIcon/>
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={place.phone}
+                                                    secondary="Teléfono"
+                                                />
+                                            </ListItem>
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <ListItem>
+                                                <ListItemIcon>
+                                                    <EmailIcon/>
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={place.email}
+                                                    secondary="Correo"
+                                                />
+                                            </ListItem>
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <ListItem>
+                                                <ListItemIcon>
+                                                    <CarIcon/>
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={place.parking ? 'Si' : 'No'}
+                                                    secondary="Parqueo"
+                                                />
+                                            </ListItem>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item xs={4}>
-                                        <ListItem>
-                                            <ListItemIcon>
-                                                <EmailIcon/>
-                                            </ListItemIcon>
-                                            <ListItemText
-                                                primary={place.email}
-                                                secondary="Correo"
-                                            />
-                                        </ListItem>
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <ListItem>
-                                            <ListItemIcon>
-                                                <CarIcon/>
-                                            </ListItemIcon>
-                                            <ListItemText
-                                                primary={place.parking ? 'Si' : 'No'}
-                                                secondary="Parqueo"
-                                            />
-                                        </ListItem>
-                                    </Grid>
-                                </Grid>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className={classNames(classes.layout, classes.cardGrid)}>
-                        <Grid container spacing={40}>
-                            {fields.map(field => (
-                                <Grid item key={field.number} sm={6} md={4} lg={3}>
-                                    {console.log(field)}
-                                    <Card className={classes.card}>
-                                        <CardMedia
-                                            className={classes.cardMedia}
-                                            image={field.image}
-                                            title="Image title"/>
-                                        <CardContent className={classes.cardContent}>
-                                            <Typography
-                                                gutterBottom
-                                                variant="headline"
-                                                component="h2">
-                                                Cancha {field.number}
-                                            </Typography>
-                                            <Typography>
-                                                Tamaño: {field.size}
-                                            </Typography>
-                                            <Typography>
-                                                Techada: {field.roof ? 'Si' : 'No'}
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            <Button
-                                                size="small"
-                                                color="primary"
-                                                href="/field">
-                                                Reservar
-                                            </Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </div>
-                </main>
-                <footer className={classes.footer}>
-                    <Typography
-                        variant="title"
-                        align="center"
-                        gutterBottom>
-                        Sistema de reserva de espacios deportivos.
-                    </Typography>
-                    <Typography
-                        variant="subheading"
-                        align="center"
-                        color="textSecondary"
-                        component="p">
-                        Copyright (c) 2018
-                    </Typography>
-                </footer>
-            </React.Fragment>
+                        <div className={classNames(classes.layout, classes.cardGrid)}>
+                            <Grid container spacing={40}>
+                                {fields.map(field => (
+                                    <Grid item key={field.number} sm={6} md={4} lg={3}>
+                                        <Card className={classes.card}>
+                                            <CardMedia
+                                                className={classes.cardMedia}
+                                                image={field.image}
+                                                title="Image title"/>
+                                            <CardContent className={classes.cardContent}>
+                                                <Typography
+                                                    gutterBottom
+                                                    variant="headline"
+                                                    component="h2">
+                                                    Cancha {field.number}
+                                                </Typography>
+                                                <Typography>
+                                                    Tamaño: {field.size}
+                                                </Typography>
+                                                <Typography>
+                                                    Techada: {field.roof ? 'Si' : 'No'}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions>
+                                                <Button
+                                                    size="small"
+                                                    color="primary"
+                                                    onClick={() => this.props.fetchField(field.id)}>
+                                                    Reservar
+                                                </Button>
+                                            </CardActions>
+                                        </Card>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </div>
+                    </main>
+                    <footer className={classes.footer}>
+                        <Typography
+                            variant="title"
+                            align="center"
+                            gutterBottom>
+                            Sistema de reserva de espacios deportivos.
+                        </Typography>
+                        <Typography
+                            variant="subheading"
+                            align="center"
+                            color="textSecondary"
+                            component="p">
+                            Copyright (c) 2018
+                        </Typography>
+                    </footer>
+                </React.Fragment>
+            </div>
         );
     }
 }
 
 Place.propTypes = {
     classes: PropTypes.object.isRequired,
+    router: PropTypes.object
 };
 
 export default withStyles(styles)(Place);

@@ -25,7 +25,8 @@ import StoreIcon from "@material-ui/icons/Store";
 import Chip from '@material-ui/core/Chip';
 import grey from '@material-ui/core/colors/grey';
 
-import CheckoutModal from './CheckoutModal';
+import CheckoutModal from '../CheckoutModal';
+import {Redirect} from "react-router-dom";
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -179,9 +180,10 @@ class Field extends React.Component {
   }
 
   render() {
-
-    const { classes } = this.props;
-
+    const { classes, field } = this.props;
+      if (!field.id) {
+          return <Redirect to='/'/>
+      }
     return (
       <React.Fragment>
         <CssBaseline />
@@ -194,7 +196,7 @@ class Field extends React.Component {
               <BackIcon />
             </IconButton>
             <Typography variant="title" color="inherit">
-              Cancha #4
+              Cancha #{field.number}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -207,7 +209,7 @@ class Field extends React.Component {
                   <CardIcon color="warning">
                     <MoneyIcon />
                   </CardIcon>
-                  <h2 className={classes.cardTitle}>$120,000</h2>
+                  <h2 className={classes.cardTitle}>${field.price.toLocaleString()}</h2>
                 </CardHeader>
                 <CardFooter stats>
                   <div className={classes.stats}>
@@ -222,7 +224,7 @@ class Field extends React.Component {
                   <CardIcon color="success">
                     <StoreIcon />
                   </CardIcon>
-                  <h2 className={classes.cardTitle}>Si</h2>
+                  <h2 className={classes.cardTitle}>{field.roof ? 'Si' : 'No'}</h2>
                 </CardHeader>
                 <CardFooter stats>
                   <div className={classes.stats}>
@@ -237,7 +239,7 @@ class Field extends React.Component {
                   <CardIcon color="danger">
                     <PlayerIcon />
                   </CardIcon>
-                  <h2 className={classes.cardTitle}>9</h2>
+                  <h2 className={classes.cardTitle}>{field.size}</h2>
                 </CardHeader>
                 <CardFooter stats>
                   <div className={classes.stats}>

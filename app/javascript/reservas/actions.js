@@ -16,6 +16,28 @@ export const fetchPlace = () => (dispatch) => {
     return dispatch
 };
 
+export const fetchField = (id) => (dispatch) => {
+    fetch(URL + 'field/' + id)
+        .then(response => response.json())
+        .then(field => {
+            dispatch({
+                type: C.FETCH_FIELD,
+                payload: field
+            });
+        })
+        .catch(error => {
+            dispatch(addError(error.message))
+        });
+    return dispatch
+};
+
+export const clearField = () => {
+    return {
+        type: C.FETCH_FIELD,
+        payload: {}
+    }
+};
+
 export const addError = (message) => {
     return {
         type: C.ADD_ERROR,
