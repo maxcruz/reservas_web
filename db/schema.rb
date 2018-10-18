@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_122247) do
+ActiveRecord::Schema.define(version: 2018_10_18_064443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.string "code"
+    t.bigint "field_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["field_id"], name: "index_events_on_field_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
 
   create_table "fields", force: :cascade do |t|
     t.integer "number"
@@ -37,5 +49,25 @@ ActiveRecord::Schema.define(version: 2018_10_17_122247) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "promos", force: :cascade do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.integer "price"
+    t.bigint "field_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["field_id"], name: "index_promos_on_field_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "events", "fields"
+  add_foreign_key "events", "users"
   add_foreign_key "fields", "places"
+  add_foreign_key "promos", "fields"
 end

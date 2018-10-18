@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   scope :api do
       get "/place", to: "places#index"
       get '/field/:id' => "fields#find"
+      get '/field/:id/promos' => "fields#promos"
   end
 
   root to: "pages#home"
