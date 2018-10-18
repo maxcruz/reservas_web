@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import Place from './container/Place';
-import SignIn from './SignIn';
+import SignIn from './container/SignIn';
 import Field from './container/Field';
 
 const App = () => (

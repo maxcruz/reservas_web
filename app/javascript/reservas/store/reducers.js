@@ -17,6 +17,15 @@ export const field = (state={}, action) => {
     }
 };
 
+export const session = (state=false, action) => {
+    switch(action.type) {
+        case C.LOGIN:
+            return action.payload;
+        default:
+            return state
+    }
+};
+
 export const errors = (state=[], action) => {
     switch(action.type) {
         case C.ADD_ERROR :
@@ -34,5 +43,6 @@ export const errors = (state=[], action) => {
 export default combineReducers({
     place,
     field,
-    errors
+    errors,
+    session
 })

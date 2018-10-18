@@ -45,64 +45,12 @@ const stylesMain = () => ({
     }
 });
 
-const today = new Date();
-const y = today.getFullYear();
-const m = today.getMonth();
-
-const events = [
-    {
-        title: "RESERVED",
-        start: new Date(y, m, 1, 16, 0, 0),
-        end: new Date(y, m, 1, 17, 0, 0),
-    },
-    {
-        title: "RESERVED",
-        start: new Date(y, m, 5, 15, 0, 0),
-        end: new Date(y, m, 5, 16, 0, 0),
-    },
-    {
-        title: "RESERVED",
-        start: new Date(y, m, 17, 9, 0, 0),
-        end: new Date(y, m, 17, 10, 0, 0),
-    },
-    {
-        title: "RESERVED",
-        start: new Date(y, m, 20, 11, 0, 0),
-        end: new Date(y, m, 20, 12, 0, 0),
-    },
-    {
-        title: "RESERVED",
-        start: new Date(y, m, 28, 14, 0, 0),
-        end: new Date(y, m, 28, 15, 0, 0),
-    },
-    {
-        title: "RESERVED",
-        start: new Date(y, m, 4, 16, 0, 0),
-        end: new Date(y, m, 4, 17, 0, 0),
-    },
-    {
-        title: "RESERVED",
-        start: new Date(y, m, 11, 18, 0, 0),
-        end: new Date(y, m, 11, 19, 0, 0),
-    },
-    {
-        title: "RESERVED",
-        start: new Date(y, m, 15, 21, 0, 0),
-        end: new Date(y, m, 15, 22, 0, 0),
-    },
-    {
-        title: "RESERVED",
-        start: new Date(y, m, 8, 16, 0, 0),
-        end: new Date(y, m, 8, 17, 0, 0),
-    },
-];
-
 class Field extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            events: events,
+            events: [],
             checkout: false,
             view: 'month',
             selectedSlot: null,

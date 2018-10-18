@@ -5,6 +5,8 @@ export const C = {
     FETCH_PROMOS: "FETCH_PROMOS",
     FETCH_EVENTS: "FETCH_EVENTS",
 
+    LOGIN: "LOGIN",
+
     ADD_ERROR: "ADD_ERROR",
     CLEAR_ERROR: "CLEAR_ERROR"
 };

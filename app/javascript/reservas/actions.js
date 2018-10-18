@@ -68,6 +68,30 @@ export const fetchEvents = (id) => (dispatch) => {
     return dispatch
 };
 
+export const login = (email, password) => (dispatch) => {
+    fetch(URL + 'login', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            password: password
+        })
+    })
+        .then(response => {
+            dispatch({
+                type: C.LOGIN,
+                payload: response.status === 200
+            });
+        })
+        .catch(error => {
+            dispatch(addError(error.message))
+        });
+    return dispatch
+};
+
 export const addError = (message) => {
     return {
         type: C.ADD_ERROR,
