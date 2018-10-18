@@ -28,7 +28,7 @@ import grey from '@material-ui/core/colors/grey';
 import CheckoutModal from '../CheckoutModal';
 import {Redirect} from "react-router-dom";
 
-const localizer = BigCalendar.momentLocalizer(moment);
+const localized = BigCalendar.momentLocalizer(moment);
 
 const stylesMain = () => ({
   cardTitle: {
@@ -270,7 +270,7 @@ class Field extends React.Component {
                 <CardBody calendar>
                   <BigCalendar
                     selectable
-                    localizer={localizer}
+                    localizer={localized}
                     events={this.state.events}
                     style={{ height: '80vh' }}
                     defaultView="month"
