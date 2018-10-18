@@ -7,6 +7,12 @@ RailsAdmin.config do |config|
   #   warden.authenticate! scope: :user
   # end
   # config.current_user_method(&:current_user)
+  #config.authenticate_with do
+  #  authenticate_or_request_with_http_basic('Login required') do |email, password|
+  #    user = User.where(email: email).first
+  #    user.authenticate(password) if user
+  #  end
+  #end
 
   ## == Cancan ==
   # config.authorize_with :cancan
@@ -38,4 +44,10 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model 'User' do
+      exclude_fields :password_digest
+      field :password
+  end
+
 end

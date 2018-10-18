@@ -42,3 +42,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Admin
 gem 'rails_admin', '~> 1.3'
+
+# Bcrypt
+gem 'bcrypt', '~> 3.1.7'

@@ -15,6 +15,7 @@ class FieldsController < ApplicationController
   end
 
   def events
+    user = current_user
     events = Event.where(field_id: params[:id])
     render :json => events.to_json(
         only: [:start, :end]

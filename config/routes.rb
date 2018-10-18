@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       get "/place", to: "places#index"
       get '/field/:id' => "fields#find"
       get '/field/:id/promos' => "fields#promos"
+      post '/login' => "sessions#create"
+      get '/logout' => "sessions#destroy"
   end
 
   root to: "pages#home"
