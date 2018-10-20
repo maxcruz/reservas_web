@@ -34,13 +34,15 @@ class CheckoutModal extends React.Component {
             show: this.props.show,
             activeStep: 0,
             code: null,
+            card: {}
         };
+        this.cardChanged = this.cardChanged.bind(this)
     }
 
     getStepContent(step) {
         switch (step) {
             case 0:
-                return <PaymentForm id="card" onChange={this.cardChanged}/>;
+                return <PaymentForm id="card" card={this.state.card} onChange={this.cardChanged}/>;
             case 1:
                 return <PaymentReview slotInfo={this.props.slotInfo}/>;
             case 2:
@@ -76,11 +78,10 @@ class CheckoutModal extends React.Component {
     };
 
     cardChanged(value) {
-
+        this.setState({card: value})
     }
 
     render() {
-
         const {classes} = this.props;
         const {activeStep} = this.state;
 

@@ -6,8 +6,9 @@ class PaymentForm extends React.Component {
 
     constructor(props) {
         super(props);
+        const card = (this.props.card) ? this.props.card : {};
         this.state = {
-            card: {}
+            card: card
         };
         this.updateFormState = this.updateFormState.bind(this)
     }
@@ -27,7 +28,7 @@ class PaymentForm extends React.Component {
                     <TextField required
                         name="name"
                         label="Nombre en la tarjeta"
-                        value={this.state.name}
+                         defaultValue={this.state.card.name}
                         onChange={this.updateFormState}
                         fullWidth/>
                 </Grid>
@@ -35,7 +36,7 @@ class PaymentForm extends React.Component {
                     <TextField required
                         name="number"
                         label="Número de tarjeta"
-                        value={this.state.number}
+                        defaultValue={this.state.card.number}
                         onChange={this.updateFormState}
                         fullWidth/>
                 </Grid>
@@ -43,7 +44,7 @@ class PaymentForm extends React.Component {
                     <TextField required
                         name="expiration"
                         label="Expiración"
-                        value={this.state.expiration}
+                        defaultValue={this.state.card.expiration}
                         onChange={this.updateFormState}
                         helperText="MM/YY"
                         fullWidth/>
@@ -52,7 +53,7 @@ class PaymentForm extends React.Component {
                     <TextField required
                         name="cvv"
                         label="CVV"
-                        value={this.state.cvv}
+                        defaultValue={this.state.card.cvv}
                         onChange={this.updateFormState}
                         helperText="Últimos tres dígitos al reverso"
                         fullWidth/>
