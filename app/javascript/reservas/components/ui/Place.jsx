@@ -78,8 +78,24 @@ class Place extends React.Component {
         this.props.clearField();
     }
 
+    sessionUI(hasSession) {
+        return (hasSession) ?
+            <Button
+                variant="flat"
+                color="inherit"
+                onClick={() => {this.props.logout()}}>
+                Salir
+            </Button> :
+            <Button
+                variant="flat"
+                color="inherit"
+                href="/login">
+                Ingresar
+            </Button>
+    }
+
     render() {
-        const {classes, place, field} = this.props;
+        const {classes, place, field, session} = this.props;
         let {fields} = place;
         if (field.id) {
             return <Redirect to='/field'/>
@@ -100,12 +116,7 @@ class Place extends React.Component {
                                 className={classes.title}>
                                 Reservas App
                             </Typography>
-                            <Button
-                                variant="flat"
-                                color="inherit"
-                                href="/login">
-                                Ingresar
-                            </Button>
+                            {this.sessionUI(session)}
                         </Toolbar>
                     </AppBar>
                     <main>

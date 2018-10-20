@@ -1,11 +1,12 @@
 import Place from '../ui/Place'
 import { connect } from 'react-redux'
-import { fetchPlace, clearField, fetchField } from '../../actions'
+import {fetchPlace, clearField, fetchField, logout} from '../../actions'
 
 const mapStateToProps = (state) =>
     ({
         place: state.place,
-        field: state.field
+        field: state.field,
+        session: state.session
     });
 
 const mapDispatchToProps = (dispatch) =>
@@ -23,6 +24,11 @@ const mapDispatchToProps = (dispatch) =>
         clearField() {
             dispatch(
                 clearField()
+            )
+        },
+        logout() {
+            dispatch(
+                logout()
             )
         }
     });

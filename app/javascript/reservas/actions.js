@@ -92,6 +92,20 @@ export const login = (email, password) => (dispatch) => {
     return dispatch
 };
 
+export const logout = () => (dispatch) => {
+    fetch(URL + 'logout')
+        .then(() => {
+            dispatch({
+                type: C.LOGIN,
+                payload: false
+            });
+        })
+        .catch(error => {
+            dispatch(addError(error.message))
+        });
+    return dispatch
+};
+
 export const addError = (message) => {
     return {
         type: C.ADD_ERROR,
