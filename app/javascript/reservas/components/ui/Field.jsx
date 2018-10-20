@@ -25,7 +25,7 @@ import StoreIcon from "@material-ui/icons/Store";
 import Chip from '@material-ui/core/Chip';
 import grey from '@material-ui/core/colors/grey';
 
-import CheckoutModal from '../CheckoutModal';
+import CheckoutModal from './CheckoutModal';
 import {Redirect} from "react-router-dom";
 
 const localized = BigCalendar.momentLocalizer(moment);
