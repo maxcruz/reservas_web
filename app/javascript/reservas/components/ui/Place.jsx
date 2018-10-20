@@ -74,14 +74,18 @@ const styles = theme => ({
 class Place extends React.Component {
 
     componentWillMount() {
-        this.props.clearField()
+        this.props.fetchPlace();
+        this.props.clearField();
     }
 
     render() {
         const {classes, place, field} = this.props;
-        const {fields} = place;
+        let {fields} = place;
         if (field.id) {
             return <Redirect to='/field'/>
+        }
+        if (!fields) {
+            fields = []
         }
         return (
             <div>

@@ -8,5 +8,6 @@
     "parking": false,
     "fields": []
   },
+  "session": false,
   "errors": []
 }

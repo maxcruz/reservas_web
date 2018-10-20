@@ -1,6 +1,6 @@
 import Place from '../ui/Place'
 import { connect } from 'react-redux'
-import { fetchField, clearField } from '../../actions'
+import { fetchPlace, clearField, fetchField } from '../../actions'
 
 const mapStateToProps = (state) =>
     ({
@@ -10,6 +10,11 @@ const mapStateToProps = (state) =>
 
 const mapDispatchToProps = (dispatch) =>
     ({
+        fetchPlace() {
+            dispatch(
+                fetchPlace()
+            )
+        },
         fetchField(id) {
             dispatch(
                 fetchField(id)

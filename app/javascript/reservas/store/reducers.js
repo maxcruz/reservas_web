@@ -2,7 +2,7 @@ import {C} from '../constants'
 import { combineReducers } from 'redux'
 
 export const place = (state={}, action) =>
-    (action.type === C.FETCH_PLACE) ? action.payload : state;
+    (action.type === C.FETCH_PLACE) ? Object.assign({}, state, action.payload) : state;
 
 export const field = (state={}, action) => {
     switch(action.type) {

@@ -2,7 +2,6 @@ import {S} from "../constants";
 import appReducers from './reducers'
 import thunk from 'redux-thunk'
 import {createStore, applyMiddleware } from 'redux'
-import initialState from '../initialState.json'
 
 const consoleMessages = store => next => action => {
     console.groupCollapsed(`dispatching action => ${action.type}`);
@@ -22,6 +21,6 @@ const saveState = store => next => action => {
 export default () => {
     let currentState = (localStorage[S.BOOKING_STORE]) ?
         JSON.parse(localStorage[S.BOOKING_STORE]) :
-        initialState;
-    return applyMiddleware(thunk, consoleMessages)(createStore, saveState)(appReducers, currentState);
+        {};
+    return applyMiddleware(thunk, consoleMessages, saveState)(createStore)(appReducers, currentState);
 }
