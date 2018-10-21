@@ -50,7 +50,8 @@ class SignIn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            form: {}
+            form: {},
+            toHome: props.session
         };
         this.updateFormState = this.updateFormState.bind(this)
     }
@@ -62,9 +63,26 @@ class SignIn extends React.Component {
         return this.setState({form: form});
     }
 
+    tryLogin() {
+        const {email, password} = this.state.form;
+        if (email && password) {
+            this.props.login(email, password)
+                .then(success => {
+                    if (success === true) {
+                        this.setState({toHome: true})
+                    }
+                })
+                .catch(() => {
+                    alert("Usuario o contraseña incorrectos.")
+                })
+        } else {
+            alert("Ingrese su usuario y contraseña por favor.")
+        }
+    }
+
     render() {
-        const { classes, session } = this.props;
-        if (session) {
+        const { classes } = this.props;
+        if (this.state.toHome === true) {
             return <Redirect to='/'/>
         }
         return(
@@ -107,7 +125,7 @@ class SignIn extends React.Component {
                                 variant="raised"
                                 color="primary"
                                 onClick={() => {
-                                    this.props.login(this.state.form.email, this.state.form.password)
+                                    this.tryLogin()
                                 }}
                                 className={classes.submit}
                             >
@@ -117,7 +135,9 @@ class SignIn extends React.Component {
                                 fullWidth
                                 variant="outlined"
                                 color="primary"
-                                href="/"
+                                onClick={() => {
+                                    this.setState({toHome: true})
+                                }}
                                 className={classes.submit}
                             >
                                 Cancelar

@@ -53,15 +53,33 @@ class Field extends React.Component {
             events: [],
             checkout: false,
             view: 'month',
-            selectedSlot: null,
             selectedDate: new Date(),
+            selectedSlot: null,
             selectedPrice: null,
-            needLogin: false
+            toHome: false,
+            toLogin: false,
         };
     }
     componentWillMount() {
-        this.props.fetchPromos(this.props.field.id);
-        this.props.fetchEvents(this.props.field.id);
+        const {field} = this.props;
+        if (!field.id) {
+            this.setState({toHome: true});
+            return;
+        }
+        this.props.fetchPromos(field.id)
+            .then(() => {
+                const newEvents = [...this.state.events, ...this.props.field.promos.map(this.convertDate)];
+                this.setState({
+                    events: newEvents
+                })
+            });
+        this.props.fetchEvents(field.id)
+            .then(() => {
+                const newEvents = [...this.state.events, ...this.props.field.events.map(this.convertDate)];
+                this.setState({
+                    events: newEvents
+                })
+            });
     }
 
     static selectedEvent(event) {
@@ -83,44 +101,29 @@ class Field extends React.Component {
                 selectedPrice: price
             });
         } else {
-
-            this.setState({
-                needLogin: true
-            });
+            this.setState({toLogin: true});
         }
     }
 
-    // TODO: REPAIR THIS
     addNewEvent(title, slotInfo) {
-        const newEvents = this.state.events;
-        newEvents.push({
+        const newEvent = {
             title: title,
             start: slotInfo.start,
             end: slotInfo.end,
             isMine: true
-        });
-        this.setState({events: newEvents});
+        };
+        this.setState({events: [...this.state.events, newEvent]});
     }
 
-    getPromos() {
-        return (this.props.field.promos) ?
-            this.props.field.promos.map(promo => {
-                promo.start = new Date(promo.start);
-                promo.end = new Date(promo.end);
-                return promo;
-            }) : [];
-    }
+    convertDate = (event) => {
+        const newEvent = event;
+        newEvent.start = new Date(event.start);
+        newEvent.end = new Date(event.end);
+        return newEvent;
+    };
 
-    getEvents() {
-        return (this.props.field.events) ?
-            this.props.field.events.map(event => {
-                event.start = new Date(event.start);
-                event.end = new Date(event.end);
-                return event;
-            }) : [];
-    }
-
-    static eventColors(event) {
+    // TODO: THIS SHOULD BE AN STYLE CONCERN
+    static eventStyle(event) {
         let newStyle = {
             backgroundColor: "lightgrey",
             color: 'black',
@@ -138,13 +141,12 @@ class Field extends React.Component {
 
     render() {
         const {classes, field, user} = this.props;
-        const events = this.getEvents();
-        const promos = this.getPromos();
-        const calendar = events.concat(promos);
-        if (!field.id) {
+        const {events, toHome, toLogin} = this.state;
+        if (toHome) {
             return <Redirect to='/'/>
         }
-        if(this.state.needLogin) {
+        // TODO: Fix warning regarding the calendar when navigate to login
+        if(toLogin) {
             return <Redirect to='/login'/>
         }
         return (
@@ -155,7 +157,9 @@ class Field extends React.Component {
                         <IconButton
                             className={classes.button}
                             aria-label="Back"
-                            href="/">
+                            onClick={() => {
+                                this.setState({toHome: true})
+                            }}>
                             <BackIcon/>
                         </IconButton>
                         <Typography variant="title" color="inherit">
@@ -234,7 +238,7 @@ class Field extends React.Component {
                                     <BigCalendar
                                         selectable
                                         localizer={localized}
-                                        events={calendar}
+                                        events={events}
                                         style={{height: '80vh'}}
                                         defaultView="month"
                                         date={this.state.selectedDate}
@@ -243,20 +247,16 @@ class Field extends React.Component {
                                         min={new Date(2017, 10, 0, 9, 0, 0)}
                                         max={new Date(2017, 10, 0, 22, 0, 0)}
                                         onView={view => {
-                                            this.setState({
-                                                view: view
-                                            });
+                                            this.setState({view: view});
                                         }}
                                         views={['month', 'week', 'day', 'agenda']}
                                         view={this.state.view}
                                         onNavigate={(day) => {
-                                            this.setState({
-                                                selectedDate: day
-                                            });
+                                            this.setState({selectedDate: day});
                                         }}
                                         onSelectEvent={event => Field.selectedEvent(event)}
                                         onSelectSlot={slotInfo => this.openCheckoutModal(slotInfo)}
-                                        eventPropGetter={Field.eventColors}
+                                        eventPropGetter={Field.eventStyle}
                                     />
                                 </CardBody>
                             </Card>

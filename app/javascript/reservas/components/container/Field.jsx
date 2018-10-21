@@ -11,12 +11,12 @@ const mapStateToProps = (state) =>
 const mapDispatchToProps = (dispatch) =>
     ({
         fetchPromos(id) {
-            dispatch(
+            return dispatch(
                 fetchPromos(id)
             )
         },
         fetchEvents(id) {
-            dispatch(
+            return dispatch(
                 fetchEvents(id)
             )
         }

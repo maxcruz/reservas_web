@@ -17,7 +17,7 @@ export const fetchPlace = () => (dispatch) => {
 };
 
 export const fetchField = (id) => (dispatch) => {
-    fetch(URL + 'field/' + id)
+    return fetch(URL + 'field/' + id)
         .then(response => response.json())
         .then(field => {
             dispatch({
@@ -28,19 +28,21 @@ export const fetchField = (id) => (dispatch) => {
         .catch(error => {
             dispatch(addError(error.message))
         });
-    return dispatch
 };
 
 export const clearField = () => (dispatch) => {
-    dispatch ({
-        type: C.CLEAR_FIELD,
-        payload: {}
+    return new Promise(resolve => {
+        resolve(
+            dispatch ({
+                type: C.CLEAR_FIELD,
+                payload: {}
+            })
+        )
     });
-    return dispatch
 };
 
 export const fetchPromos = (id) => (dispatch) => {
-    fetch(URL + 'field/' + id + '/promos')
+    return fetch(URL + 'field/' + id + '/promos')
         .then(response => response.json())
         .then(promos => {
             dispatch({
@@ -49,13 +51,12 @@ export const fetchPromos = (id) => (dispatch) => {
             })
         })
         .catch(error => {
-            dispatch(addError(error.message))
+            dispatch(addError(error.message));
         });
-    return dispatch
 };
 
 export const fetchEvents = (id) => (dispatch) => {
-    fetch(URL + 'field/' + id + '/events')
+    return fetch(URL + 'field/' + id + '/events')
         .then(response => response.json())
         .then(events => {
             dispatch({
@@ -66,11 +67,10 @@ export const fetchEvents = (id) => (dispatch) => {
         .catch(error => {
             dispatch(addError(error.message))
         });
-    return dispatch
 };
 
 export const login = (email, password) => (dispatch) => {
-    fetch(URL + 'login', {
+    return fetch(URL + 'login', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -82,22 +82,26 @@ export const login = (email, password) => (dispatch) => {
         })
     })
         .then(response => {
+            const result = response.status === 200;
             dispatch({
                 type: C.SESSION,
-                payload: response.status === 200
+                payload: result
             });
-            return response.json()
+            if (result) {
+                return response.json()
+            }
         })
         .then(user => {
             dispatch({
                 type: C.LOGIN,
                 payload: user
             });
+            return (Object.keys(user).length !== 0)
         })
         .catch(error => {
-            dispatch(addError(error.message))
+            dispatch(addError(error.message));
+            throw error
         });
-    return dispatch
 };
 
 export const logout = () => (dispatch) => {

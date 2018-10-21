@@ -73,36 +73,38 @@ const styles = theme => ({
 
 class Place extends React.Component {
 
+    constructor(props, state) {
+        super(props, state);
+        this.state = {
+            toField: false,
+            toLogin: false
+        }
+    }
+
     componentDidMount() {
-        this.props.clearField();
-        this.props.fetchPlace();
+        this.props.clearField().then(() => {
+            this.props.fetchPlace();
+        });
     }
 
     sessionUI(hasSession) {
-        return (hasSession) ?
-            <Button
-                variant="flat"
-                color="inherit"
-                onClick={() => {this.props.logout()}}>
-                Salir
-            </Button> :
-            <Button
-                variant="flat"
-                color="inherit"
-                href="/login">
-                Ingresar
-            </Button>
+        return (hasSession)
+            ? <Button variant="flat" color="inherit" onClick={() => {
+                this.props.logout()
+            }}>Salir</Button>
+            : <Button variant="flat" color="inherit" onClick={() => {
+                this.setState({toLogin: true})
+            }}>Ingresar</Button>
     }
 
     render() {
-        const {classes, place, field, session} = this.props;
-        let {fields} = place;
-
-        if (field.id) {
-            //return <Redirect to='/field'/>
+        const {classes, place, session} = this.props;
+        const {fields} = place;
+        if (this.state.toField === true) {
+            return <Redirect to='/field'/>
         }
-        if (!fields) {
-            fields = []
+        if (this.state.toLogin === true) {
+            return <Redirect to='/login'/>
         }
         return (
             <div>
@@ -204,8 +206,10 @@ class Place extends React.Component {
                                                     size="small"
                                                     color="primary"
                                                     onClick={() => {
-                                                        this.props.fetchField(field.id);
-                                                        this.props.history.push('/field')
+                                                        this.props.fetchField(field.id)
+                                                            .then(() => {
+                                                                this.setState({toField: true});
+                                                            });
                                                     }}>
                                                     Reservar
                                                 </Button>
@@ -238,8 +242,7 @@ class Place extends React.Component {
 }
 
 Place.propTypes = {
-    classes: PropTypes.object.isRequired,
-    router: PropTypes.object
+    classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Place);

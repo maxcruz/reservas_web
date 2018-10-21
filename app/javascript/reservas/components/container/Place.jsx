@@ -11,26 +11,26 @@ const mapStateToProps = (state) =>
 
 const mapDispatchToProps = (dispatch) =>
     ({
+        clearField() {
+            return dispatch(
+                clearField()
+            )
+        },
         fetchPlace() {
             dispatch(
                 fetchPlace()
-            )
-        },
-        fetchField(id) {
-            dispatch(
-                fetchField(id)
-            )
-        },
-        clearField() {
-            dispatch(
-                clearField()
             )
         },
         logout() {
             dispatch(
                 logout()
             )
-        }
+        },
+        fetchField(id) {
+            return dispatch(
+                fetchField(id)
+            )
+        },
     });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Place);
