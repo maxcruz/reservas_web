@@ -275,7 +275,9 @@ class Field extends React.Component {
                         }}
                         slotInfo={this.state.selectedSlot}
                         price={this.state.selectedPrice}
+                        field_id={this.props.field.id}
                         user={user}
+                        checkout={this.props.checkout}
                     /> : null}
             </React.Fragment>
         );

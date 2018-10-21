@@ -76,9 +76,9 @@ class PaymentForm extends React.Component {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <TextField required
-                               name="expiration"
+                               name="expires"
                                label="Expiración"
-                               defaultValue={this.state.card.expiration}
+                               defaultValue={this.state.card.expires}
                                onChange={this.updateFormState}
                                helperText="MM/YY"
                                InputProps={{
@@ -91,9 +91,9 @@ class PaymentForm extends React.Component {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <TextField required
-                               name="cvv"
+                               name="verify"
                                label="CVV"
-                               defaultValue={this.state.card.cvv}
+                               defaultValue={this.state.card.verify}
                                onChange={this.updateFormState}
                                helperText="Últimos tres dígitos al reverso"
                                type="number"

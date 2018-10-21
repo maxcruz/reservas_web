@@ -52,30 +52,45 @@ class CheckoutModal extends React.Component {
                                       user={this.props.user}/>;
             case 2:
                 return (<PaymentConfirm code={this.state.code} />);
-
             default:
                 throw new Error('Unknown step');
         }
     }
 
+    performCheckout() {
+        const {card} = this.state;
+        const {slotInfo, field_id} = this.props;
+        const {name, number, expires, verify} = card;
+        const start = slotInfo.start;
+        const end = slotInfo.end;
+        this.props.checkout(name, number, expires, verify, field_id, start, end)
+            .then((code) => {
+                this.setState(code);
+            })
+    }
+
+    // TODO: Async loader indicator when pay
     handleNext = () => {
         const {activeStep, card} = this.state;
         if (activeStep === 0) {
             let hasError;
-            const {name, number, expiration, cvv} = card;
+            const {name, number, expires, verify} = card;
             hasError = (name === undefined || name === "");
             hasError = hasError || (number === undefined || number === "");
-            hasError = hasError || (expiration === undefined || expiration === "");
-            hasError = hasError || (cvv === undefined || cvv === "");
+            hasError = hasError || (expires === undefined || expires === "");
+            hasError = hasError || (verify === undefined || verify === "");
             if (hasError) return;
         }
-        if (activeStep === steps.length - 1) {
-            let reservation = Math.random().toString(36).slice(2).toUpperCase();
-            this.setState({code: reservation});
+        if (activeStep === 1) {
+            this.performCheckout()
         }
         if (activeStep === steps.length) {
             this.setState({show: false});
-            this.props.onClose(this.state.code, this.props.slotInfo);
+            if (this.state.code){
+                this.props.onClose(this.state.code, this.props.slotInfo);
+            } else {
+                this.props.onClose();
+            }
             return;
         }
         this.setState({activeStep: activeStep + 1});
@@ -101,6 +116,7 @@ class CheckoutModal extends React.Component {
         return (
             <div>
                 <Dialog
+                    fullWidth={true}
                     classes={{
                         root: classes.center,
                         paper: classes.modal

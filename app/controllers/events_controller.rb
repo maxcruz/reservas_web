@@ -25,9 +25,11 @@ class EventsController < ApplicationController
             expires: params[:expires], 
             verify: params[:verify]
         )     
-        if payment(card)
+        field = Field.find_by(id: params[:field_id])
+        # TODO: Use promotions price
+        price = field.price
+        if payment(card, price)
             user = current_user
-            field = Field.find_by(id: params[:field_id])
             start_date = params[:start]
             end_date = params[:end]
             if user && field && start_date && end_date
@@ -52,9 +54,9 @@ class EventsController < ApplicationController
         end
     end
 
-    def payment(card)
+    def payment(card, price)
         if (card.valid?) 
-            # CALL PAYU HERE
+            # TODO: Call payu API here (we need https)
             return true
         end
         return false

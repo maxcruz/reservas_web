@@ -1,6 +1,6 @@
 import Field from '../ui/Field'
 import { connect } from 'react-redux'
-import { fetchPromos, fetchEvents } from '../../actions'
+import { fetchPromos, fetchEvents, checkout } from '../../actions'
 
 const mapStateToProps = (state) =>
     ({
@@ -18,6 +18,11 @@ const mapDispatchToProps = (dispatch) =>
         fetchEvents(id) {
             return dispatch(
                 fetchEvents(id)
+            )
+        },
+        checkout(name, number, expires, verify, field_id, start, end) {
+            return dispatch(
+                checkout(name, number, expires, verify, field_id, start, end)
             )
         }
     });

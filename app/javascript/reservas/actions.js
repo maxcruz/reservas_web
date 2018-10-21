@@ -33,7 +33,7 @@ export const fetchField = (id) => (dispatch) => {
 export const clearField = () => (dispatch) => {
     return new Promise(resolve => {
         resolve(
-            dispatch ({
+            dispatch({
                 type: C.CLEAR_FIELD,
                 payload: {}
             })
@@ -98,6 +98,30 @@ export const login = (email, password) => (dispatch) => {
             });
             return (Object.keys(user).length !== 0)
         })
+        .catch(error => {
+            dispatch(addError(error.message));
+            throw error
+        });
+};
+
+export const checkout = (name, number, expires, verify, field_id, start, end) => (dispatch) => {
+    return fetch(URL + 'event/checkout', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: name,
+            number: number,
+            expires: expires,
+            verify: verify,
+            field_id: field_id,
+            start: start,
+            end: end
+        })
+    })
+        .then(response => response.json())
         .catch(error => {
             dispatch(addError(error.message));
             throw error

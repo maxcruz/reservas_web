@@ -4,6 +4,13 @@ import Typography from "@material-ui/core/Typography/Typography";
 class PaymentConfirm extends React.Component {
 
     render() {
+        if (!this.props.code) {
+            return (
+                <Typography variant="subheading" align="center">
+                    Algo salió mal :-(
+                </Typography>
+            )
+        }
         return(
             <React.Fragment>
                 <Typography variant="headline" gutterBottom>

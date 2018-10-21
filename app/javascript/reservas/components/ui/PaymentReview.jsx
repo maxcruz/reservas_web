@@ -33,7 +33,7 @@ class PaymentReview extends React.Component {
         const payments = [
             {name: 'Nombre', detail: card.name},
             {name: 'Número', detail: card.number.replace(/\d(?=\d{4})/g, "*")},
-            {name: 'Expiración', detail: card.expiration}
+            {name: 'Expiración', detail: card.expires}
         ];
         const duration = Math.abs(slotInfo.end - slotInfo.start);
         const hours = parseInt((duration / (1000 * 60 * 60)) % 24);
