@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   scope :api do
       get "/place", to: "places#index"
       get '/field/:id' => "fields#find"
-      get '/field/:id/promos' => "fields#promos"
-      get '/field/:id/events' => "fields#events"
+      get '/field/:id/promos' => "promos#promos"
+      get '/field/:id/events' => "events#events"
       post '/login' => "sessions#create"
       get '/logout' => "sessions#destroy"
+      post '/event/checkout' => "events#checkout"
   end
 
   root to: "pages#home"
