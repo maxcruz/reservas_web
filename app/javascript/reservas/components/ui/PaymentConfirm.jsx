@@ -10,7 +10,7 @@ class PaymentConfirm extends React.Component {
                     Gracias por tu compra.
                 </Typography>
                 <Typography variant="subheading">
-                    Tu número de orden es <b>{this.state.code}</b>. Hemos enviado por correo electrónico la
+                    Tu número de orden es <b>{this.props.code}</b>. Hemos enviado por correo electrónico la
                     confirmación de su reserva, por favor presentela en el lugar.
                 </Typography>
             </React.Fragment>

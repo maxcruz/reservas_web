@@ -55,9 +55,8 @@ class PaymentReview extends React.Component {
                 <Grid container spacing={16}>
                     <Grid item xs={12} sm={6}>
                         <Typography variant="title" gutterBottom className={classes.title}>
-                            Usuario
+                            Contacto
                         </Typography>
-                        <Typography gutterBottom>Max Cruz</Typography>
                         <Typography gutterBottom>{addresses.join(', ')}</Typography>
                     </Grid>
                     <Grid item container direction="column" xs={12} sm={6}>

@@ -87,6 +87,7 @@ class Field extends React.Component {
     }
 
     openCheckoutModal(slotInfo, price) {
+        // TODO: Use price with promo in consideration
         if (slotInfo.start === slotInfo.end && this.state.view !== 'day') {
             this.setState({
                 view: 'day',
@@ -255,7 +256,7 @@ class Field extends React.Component {
                                             this.setState({selectedDate: day});
                                         }}
                                         onSelectEvent={event => Field.selectedEvent(event)}
-                                        onSelectSlot={slotInfo => this.openCheckoutModal(slotInfo)}
+                                        onSelectSlot={slotInfo => this.openCheckoutModal(slotInfo, field.price)}
                                         eventPropGetter={Field.eventStyle}
                                     />
                                 </CardBody>

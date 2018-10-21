@@ -51,7 +51,7 @@ class CheckoutModal extends React.Component {
                                       slotInfo={this.props.slotInfo}
                                       user={this.props.user}/>;
             case 2:
-                return (<PaymentConfirm/>);
+                return (<PaymentConfirm code={this.state.code} />);
 
             default:
                 throw new Error('Unknown step');
