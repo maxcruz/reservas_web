@@ -54,11 +54,12 @@ class Field extends React.Component {
             checkout: false,
             view: 'month',
             selectedSlot: null,
-            selectedDate: new Date()
+            selectedDate: new Date(),
+            selectedPrice: null,
+            needLogin: false
         };
     }
-
-    componentDidMount() {
+    componentWillMount() {
         this.props.fetchPromos(this.props.field.id);
         this.props.fetchEvents(this.props.field.id);
     }
@@ -67,7 +68,7 @@ class Field extends React.Component {
         alert(event.title);
     }
 
-    openCheckoutModal(slotInfo) {
+    openCheckoutModal(slotInfo, price) {
         if (slotInfo.start === slotInfo.end && this.state.view !== 'day') {
             this.setState({
                 view: 'day',
@@ -75,10 +76,18 @@ class Field extends React.Component {
             });
             return;
         }
-        this.setState({
-            checkout: true,
-            selectedSlot: slotInfo
-        });
+        if (this.props.user.email) {
+            this.setState({
+                checkout: true,
+                selectedSlot: slotInfo,
+                selectedPrice: price
+            });
+        } else {
+
+            this.setState({
+                needLogin: true
+            });
+        }
     }
 
     // TODO: REPAIR THIS
@@ -128,12 +137,15 @@ class Field extends React.Component {
     }
 
     render() {
-        const {classes, field} = this.props;
+        const {classes, field, user} = this.props;
         const events = this.getEvents();
         const promos = this.getPromos();
         const calendar = events.concat(promos);
         if (!field.id) {
             return <Redirect to='/'/>
+        }
+        if(this.state.needLogin) {
+            return <Redirect to='/login'/>
         }
         return (
             <React.Fragment>
@@ -261,10 +273,9 @@ class Field extends React.Component {
                             this.setState({checkout: false});
                         }}
                         slotInfo={this.state.selectedSlot}
-                    />
-                    :
-                    null
-                }
+                        price={this.state.selectedPrice}
+                        user={user}
+                    /> : null}
             </React.Fragment>
         );
     }

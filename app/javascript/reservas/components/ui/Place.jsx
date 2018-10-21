@@ -73,9 +73,9 @@ const styles = theme => ({
 
 class Place extends React.Component {
 
-    componentWillMount() {
-        this.props.fetchPlace();
+    componentDidMount() {
         this.props.clearField();
+        this.props.fetchPlace();
     }
 
     sessionUI(hasSession) {
@@ -97,8 +97,9 @@ class Place extends React.Component {
     render() {
         const {classes, place, field, session} = this.props;
         let {fields} = place;
+
         if (field.id) {
-            return <Redirect to='/field'/>
+            //return <Redirect to='/field'/>
         }
         if (!fields) {
             fields = []
@@ -202,7 +203,10 @@ class Place extends React.Component {
                                                 <Button
                                                     size="small"
                                                     color="primary"
-                                                    onClick={() => this.props.fetchField(field.id)}>
+                                                    onClick={() => {
+                                                        this.props.fetchField(field.id);
+                                                        this.props.history.push('/field')
+                                                    }}>
                                                     Reservar
                                                 </Button>
                                             </CardActions>

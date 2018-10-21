@@ -42,9 +42,14 @@ class CheckoutModal extends React.Component {
     getStepContent(step) {
         switch (step) {
             case 0:
-                return <PaymentForm id="card" card={this.state.card} onChange={this.cardChanged}/>;
+                return <PaymentForm id="card"
+                                    card={this.state.card}
+                                    onChange={this.cardChanged}/>;
             case 1:
-                return <PaymentReview slotInfo={this.props.slotInfo}/>;
+                return <PaymentReview card={this.state.card}
+                                      price={this.props.price}
+                                      slotInfo={this.props.slotInfo}
+                                      user={this.props.user}/>;
             case 2:
                 return (<PaymentConfirm/>);
 
@@ -54,7 +59,16 @@ class CheckoutModal extends React.Component {
     }
 
     handleNext = () => {
-        const {activeStep} = this.state;
+        const {activeStep, card} = this.state;
+        if (activeStep === 0) {
+            let hasError;
+            const {name, number, expiration, cvv} = card;
+            hasError = (name === undefined || name === "");
+            hasError = hasError || (number === undefined || number === "");
+            hasError = hasError || (expiration === undefined || expiration === "");
+            hasError = hasError || (cvv === undefined || cvv === "");
+            if (hasError) return;
+        }
         if (activeStep === steps.length - 1) {
             let reservation = Math.random().toString(36).slice(2).toUpperCase();
             this.setState({code: reservation});
@@ -84,7 +98,6 @@ class CheckoutModal extends React.Component {
     render() {
         const {classes} = this.props;
         const {activeStep} = this.state;
-
         return (
             <div>
                 <Dialog

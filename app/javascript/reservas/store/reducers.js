@@ -8,6 +8,8 @@ export const field = (state={}, action) => {
     switch(action.type) {
         case C.FETCH_FIELD:
             return action.payload;
+        case C.CLEAR_FIELD:
+            return {};
         case C.FETCH_PROMOS:
             return Object.assign({}, state, { promos: action.payload });
         case C.FETCH_EVENTS:
@@ -19,12 +21,15 @@ export const field = (state={}, action) => {
 
 export const session = (state=false, action) => {
     switch(action.type) {
-        case C.LOGIN:
+        case C.SESSION:
             return action.payload;
         default:
             return state
     }
 };
+
+export const user = (state={}, action) =>
+    (action.type === C.LOGIN) ? action.payload : state;
 
 export const errors = (state=[], action) => {
     switch(action.type) {
@@ -44,5 +49,6 @@ export default combineReducers({
     place,
     field,
     errors,
-    session
+    session,
+    user
 })

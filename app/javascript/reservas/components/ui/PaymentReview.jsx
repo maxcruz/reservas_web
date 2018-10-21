@@ -8,18 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import moment from 'moment';
 
-const product = {
-    name: 'Reserva Cancha 4',
-    price: '$120.000'
-};
-const addresses = ['max.raul@gmail.com'];
-const payments = [
-    {name: 'Tipo', detail: 'Visa'},
-    {name: 'Nombre', detail: 'Max Cruz'},
-    {name: 'Número', detail: 'xxxx-xxxx-xxxx-1234'},
-    {name: 'Expiración', detail: '04/2024'},
-];
-
 const styles = theme => ({
     listItem: {
         padding: `${theme.spacing.unit}px 0`,
@@ -41,7 +29,20 @@ const getDateDescription = ({start, end}) => {
 class PaymentReview extends React.Component {
 
     render() {
-        const {classes, slotInfo} = this.props;
+        const {classes, card, slotInfo, price, user} = this.props;
+        const payments = [
+            {name: 'Nombre', detail: card.name},
+            {name: 'Número', detail: card.number.replace(/\d(?=\d{4})/g, "*")},
+            {name: 'Expiración', detail: card.expiration}
+        ];
+        const duration = Math.abs(slotInfo.end - slotInfo.start);
+        const hours = parseInt((duration / (1000 * 60 * 60)) % 24);
+        const totalPrice = '$' + (hours * price).toLocaleString();
+        const product = {
+            name: 'Reserva de cancha',
+            price: totalPrice
+        };
+        const addresses = [user.email];
         return(
             <React.Fragment>
                 <Typography variant="title" gutterBottom>Resumen</Typography>
@@ -49,12 +50,6 @@ class PaymentReview extends React.Component {
                     <ListItem className={classes.listItem} key={product.name}>
                         <ListItemText primary={product.name} secondary={getDateDescription(slotInfo)}/>
                         <Typography variant="body2">{product.price}</Typography>
-                    </ListItem>
-                    <ListItem className={classes.listItem}>
-                        <ListItemText primary="Total"/>
-                        <Typography variant="subheading" className={classes.total}>
-                            $120.000
-                        </Typography>
                     </ListItem>
                 </List>
                 <Grid container spacing={16}>

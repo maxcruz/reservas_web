@@ -4,7 +4,8 @@ import { fetchPromos, fetchEvents } from '../../actions'
 
 const mapStateToProps = (state) =>
     ({
-        field: state.field
+        field: state.field,
+        user: state.user
     });
 
 const mapDispatchToProps = (dispatch) =>

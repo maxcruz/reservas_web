@@ -31,11 +31,12 @@ export const fetchField = (id) => (dispatch) => {
     return dispatch
 };
 
-export const clearField = () => {
-    return {
-        type: C.FETCH_FIELD,
+export const clearField = () => (dispatch) => {
+    dispatch ({
+        type: C.CLEAR_FIELD,
         payload: {}
-    }
+    });
+    return dispatch
 };
 
 export const fetchPromos = (id) => (dispatch) => {
@@ -82,8 +83,15 @@ export const login = (email, password) => (dispatch) => {
     })
         .then(response => {
             dispatch({
-                type: C.LOGIN,
+                type: C.SESSION,
                 payload: response.status === 200
+            });
+            return response.json()
+        })
+        .then(user => {
+            dispatch({
+                type: C.LOGIN,
+                payload: user
             });
         })
         .catch(error => {
@@ -96,8 +104,14 @@ export const logout = () => (dispatch) => {
     fetch(URL + 'logout')
         .then(() => {
             dispatch({
-                type: C.LOGIN,
+                type: C.SESSION,
                 payload: false
+            });
+        })
+        .then(() => {
+            dispatch({
+                type: C.LOGIN,
+                payload: {}
             });
         })
         .catch(error => {

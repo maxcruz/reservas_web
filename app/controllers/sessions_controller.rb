@@ -5,15 +5,16 @@ class SessionsController < ApplicationController
         user = User.find_by_email(params[:email])
         if user && user.authenticate(params[:password])
             session[:user_id] = user.id
-            render body: nil, status: :ok
+            user_response = { email: user.email }
+            render json: { email: user.email }, status: :ok
         else
-            render body: nil, status: :unauthorized
+            render json: {}, status: :unauthorized
         end
     end
 
     def destroy
         session[:user_id] = nil
-        render body: nil, status: :ok
+        render json: {}, status: :ok
     end
 
 end
