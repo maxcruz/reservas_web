@@ -31,10 +31,6 @@ import {Redirect} from "react-router-dom";
 const localized = BigCalendar.momentLocalizer(moment);
 
 const stylesMain = () => ({
-    cardTitle: {
-        color: 'grey',
-        textAlign: 'center',
-    },
     stats: {
         color: 'grey',
         fontSize: '14pt',
@@ -177,7 +173,13 @@ class Field extends React.Component {
                                     <CardIcon color="warning">
                                         <MoneyIcon/>
                                     </CardIcon>
-                                    <h2 className={classes.cardTitle}>${field.price.toLocaleString()}</h2>
+                                    <br />
+                                    <Typography
+                                        variant={"headline"}
+                                        color={"textSecondary"}
+                                        align={"center"}>
+                                        ${field.price.toLocaleString()}
+                                        </Typography>
                                 </CardHeader>
                                 <CardFooter stats>
                                     <div className={classes.stats}>
@@ -192,7 +194,13 @@ class Field extends React.Component {
                                     <CardIcon color="success">
                                         <StoreIcon/>
                                     </CardIcon>
-                                    <h2 className={classes.cardTitle}>{field.roof ? 'Si' : 'No'}</h2>
+                                    <br />
+                                    <Typography
+                                        variant={"headline"}
+                                        color={"textSecondary"}
+                                        align={"center"}>
+                                        {field.roof ? ' Si ' : ' No '}
+                                        </Typography>
                                 </CardHeader>
                                 <CardFooter stats>
                                     <div className={classes.stats}>
@@ -207,7 +215,13 @@ class Field extends React.Component {
                                     <CardIcon color="danger">
                                         <PlayerIcon/>
                                     </CardIcon>
-                                    <h2 className={classes.cardTitle}>{field.size}</h2>
+                                    <br />
+                                    <Typography
+                                        variant={"headline"}
+                                        color={"textSecondary"}
+                                        align={"center"}>
+                                        {field.size}
+                                        </Typography>
                                 </CardHeader>
                                 <CardFooter stats>
                                     <div className={classes.stats}>
