@@ -99,7 +99,10 @@ class Place extends React.Component {
 
     render() {
         const {classes, place, session} = this.props;
-        const {fields} = place;
+        let {fields} = place;
+        if (!fields) {
+            fields = []
+        }
         if (this.state.toField === true) {
             return <Redirect to='/field'/>
         }

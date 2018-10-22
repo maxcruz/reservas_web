@@ -241,7 +241,7 @@ class Field extends React.Component {
                                         localizer={localized}
                                         events={events}
                                         style={{height: '80vh'}}
-                                        defaultView="month"
+                                        defaultView='week'
                                         date={this.state.selectedDate}
                                         timeslots={1}
                                         step={60}
