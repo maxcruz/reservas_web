@@ -64,14 +64,16 @@ class Field extends React.Component {
         }
         this.props.fetchPromos(field.id)
             .then(() => {
-                const newEvents = [...this.state.events, ...this.props.field.promos.map(this.convertDate)];
+                const fetchedPromos = this.props.field.promos ? this.props.field.promos : []
+                const newEvents = [...this.state.events, ...fetchedPromos.map(this.convertDate)];
                 this.setState({
                     events: newEvents
                 })
             });
         this.props.fetchEvents(field.id)
             .then(() => {
-                const newEvents = [...this.state.events, ...this.props.field.events.map(this.convertDate)];
+                const fetchedEvents = this.props.field.events ? this.props.field.events : []
+                const newEvents = [...this.state.events, ...fetchedEvents.map(this.convertDate)];
                 this.setState({
                     events: newEvents
                 })

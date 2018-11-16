@@ -122,7 +122,7 @@ class SignIn extends React.Component {
                             </FormControl>
                             <Button
                                 fullWidth
-                                variant="raised"
+                                variant="contained"
                                 color="primary"
                                 onClick={() => {
                                     this.tryLogin()

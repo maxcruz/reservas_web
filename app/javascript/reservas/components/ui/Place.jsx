@@ -89,10 +89,10 @@ class Place extends React.Component {
 
     sessionUI(hasSession) {
         return (hasSession)
-            ? <Button variant="flat" color="inherit" onClick={() => {
+            ? <Button variant="text" color="inherit" onClick={() => {
                 this.props.logout()
             }}>Salir</Button>
-            : <Button variant="flat" color="inherit" onClick={() => {
+          : <Button variant="text" color="inherit" onClick={() => {
                 this.setState({toLogin: true})
             }}>Ingresar</Button>
     }
