@@ -9,8 +9,8 @@ Rails.application.routes.draw do
       get "/field/:id/events" => "events#events"
       post "/login" => "sessions#create"
       get "/logout" => "sessions#destroy"
-      post "/event/checkout" => "events#checkout"
-      get "/event/new_token" => "events#new_token"
+      post "/checkout" => "checkout#checkout"
+      get "/checkout/new_token" => "checkout#new_token"
   end
 
   root to: "pages#home"

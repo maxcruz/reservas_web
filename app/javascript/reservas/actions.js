@@ -117,7 +117,7 @@ export const login = (email, password) => (dispatch) => {
 };
 
 export const checkout = (name, number, expires, verify, field_id, start, end, token) => (dispatch) => {
-    return fetch(URL + 'event/checkout', {
+    return fetch(URL + 'checkout', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

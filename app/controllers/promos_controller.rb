@@ -10,7 +10,6 @@ class PromosController < ApplicationController
             end: promo.end,
             price: promo.price,
             isPromo: true
-
         }
     }
     render :json => processed.to_json()
