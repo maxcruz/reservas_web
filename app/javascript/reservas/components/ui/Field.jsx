@@ -57,12 +57,12 @@ class Field extends React.Component {
         };
     }
     componentWillMount() {
-        const {field} = this.props;
+        const {field, user} = this.props;
         if (!field.id) {
             this.setState({toHome: true});
             return;
         }
-        this.props.fetchPromos(field.id)
+        this.props.fetchPromos(field.id, user.token)
             .then(() => {
                 const fetchedPromos = this.props.field.promos ? this.props.field.promos : []
                 const newEvents = [...this.state.events, ...fetchedPromos.map(this.convertDate)];
@@ -70,7 +70,7 @@ class Field extends React.Component {
                     events: newEvents
                 })
             });
-        this.props.fetchEvents(field.id)
+        this.props.fetchEvents(field.id, user.token)
             .then(() => {
                 const fetchedEvents = this.props.field.events ? this.props.field.events : []
                 const newEvents = [...this.state.events, ...fetchedEvents.map(this.convertDate)];
@@ -177,7 +177,7 @@ class Field extends React.Component {
                                     </CardIcon>
                                     <br />
                                     <Typography
-                                        variant={"headline"}
+                                        variant={"h5"}
                                         color={"textSecondary"}
                                         align={"center"}>
                                         ${field.price.toLocaleString()}
@@ -198,7 +198,7 @@ class Field extends React.Component {
                                     </CardIcon>
                                     <br />
                                     <Typography
-                                        variant={"headline"}
+                                        variant={"h5"}
                                         color={"textSecondary"}
                                         align={"center"}>
                                         {field.roof ? ' Si ' : ' No '}
@@ -219,7 +219,7 @@ class Field extends React.Component {
                                     </CardIcon>
                                     <br />
                                     <Typography
-                                        variant={"headline"}
+                                        variant={"h5"}
                                         color={"textSecondary"}
                                         align={"center"}>
                                         {field.size}

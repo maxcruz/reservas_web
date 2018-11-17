@@ -41,8 +41,14 @@ export const clearField = () => (dispatch) => {
     });
 };
 
-export const fetchPromos = (id) => (dispatch) => {
-    return fetch(URL + 'field/' + id + '/promos')
+export const fetchPromos = (id, token) => (dispatch) => {
+    return fetch(URL + 'field/' + id + '/promos', {
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+      }
+    })
         .then(response => response.json())
         .then(promos => {
             dispatch({
@@ -55,8 +61,14 @@ export const fetchPromos = (id) => (dispatch) => {
         });
 };
 
-export const fetchEvents = (id) => (dispatch) => {
-    return fetch(URL + 'field/' + id + '/events')
+export const fetchEvents = (id, token) => (dispatch) => {
+    return fetch(URL + 'field/' + id + '/events', {
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+      }
+    })
         .then(response => response.json())
         .then(events => {
             dispatch({
@@ -104,12 +116,13 @@ export const login = (email, password) => (dispatch) => {
         });
 };
 
-export const checkout = (name, number, expires, verify, field_id, start, end) => (dispatch) => {
+export const checkout = (name, number, expires, verify, field_id, start, end, token) => (dispatch) => {
     return fetch(URL + 'event/checkout', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         },
         body: JSON.stringify({
             name: name,
@@ -121,7 +134,6 @@ export const checkout = (name, number, expires, verify, field_id, start, end) =>
             end: end
         })
     })
-        .then(response => response.json())
         .catch(error => {
             dispatch(addError(error.message));
             throw error

@@ -10,19 +10,19 @@ const mapStateToProps = (state) =>
 
 const mapDispatchToProps = (dispatch) =>
     ({
-        fetchPromos(id) {
+        fetchPromos(id, token) {
             return dispatch(
-                fetchPromos(id)
+                fetchPromos(id, token)
             )
         },
-        fetchEvents(id) {
+        fetchEvents(id, token) {
             return dispatch(
-                fetchEvents(id)
+                fetchEvents(id, token)
             )
         },
-        checkout(name, number, expires, verify, field_id, start, end) {
+        checkout(name, number, expires, verify, field_id, start, end, token) {
             return dispatch(
-                checkout(name, number, expires, verify, field_id, start, end)
+                checkout(name, number, expires, verify, field_id, start, end, token)
             )
         }
     });

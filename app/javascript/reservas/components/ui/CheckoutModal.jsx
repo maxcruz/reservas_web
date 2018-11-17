@@ -14,6 +14,8 @@ import PaymentReview from './PaymentReview';
 import modalStyle from "material-dashboard/assets/jss/material-dashboard-pro-react/modalStyle.jsx";
 import PaymentConfirm from "./PaymentConfirm";
 
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
+
 const steps = ['Pago', 'Confirmar'];
 
 const styles = () => ({
@@ -59,11 +61,11 @@ class CheckoutModal extends React.Component {
 
     performCheckout() {
         const {card} = this.state;
-        const {slotInfo, field_id} = this.props;
+        const {slotInfo, field_id, user} = this.props;
         const {name, number, expires, verify} = card;
         const start = slotInfo.start;
         const end = slotInfo.end;
-        this.props.checkout(name, number, expires, verify, field_id, start, end)
+        this.props.checkout(name, number, expires, verify, field_id, start, end, user.token)
             .then((code) => {
                 this.setState(code);
             })
