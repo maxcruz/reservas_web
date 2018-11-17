@@ -134,6 +134,7 @@ export const checkout = (name, number, expires, verify, field_id, start, end, to
             end: end
         })
     })
+        .then(response => response.json())
         .catch(error => {
             dispatch(addError(error.message));
             throw error

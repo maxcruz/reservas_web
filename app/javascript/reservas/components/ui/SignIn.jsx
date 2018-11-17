@@ -93,7 +93,7 @@ class SignIn extends React.Component {
                         <Avatar className={classes.avatar}>
                             <LockIcon />
                         </Avatar>
-                        <Typography variant="headline">
+                        <Typography variant="h5">
                             Ingresar
                         </Typography>
                         <form className={classes.form}>

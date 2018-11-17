@@ -13,7 +13,7 @@ class PaymentConfirm extends React.Component {
         }
         return(
             <React.Fragment>
-                <Typography variant="headline" gutterBottom>
+                <Typography variant="h5" gutterBottom>
                     Gracias por tu compra.
                 </Typography>
                 <Typography variant="subheading">

@@ -129,7 +129,7 @@ class Place extends React.Component {
                         <div className={classes.heroUnit}>
                             <div className={classes.heroContent}>
                                 <Typography
-                                    variant="display3"
+                                    variant="h2"
                                     align="center"
                                     color="textPrimary"
                                     gutterBottom>
@@ -193,7 +193,7 @@ class Place extends React.Component {
                                             <CardContent className={classes.cardContent}>
                                                 <Typography
                                                     gutterBottom
-                                                    variant="headline"
+                                                    variant="h5"
                                                     component="h2">
                                                     Cancha {field.number}
                                                 </Typography>
