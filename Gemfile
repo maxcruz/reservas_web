@@ -48,3 +48,6 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Payment
 gem "braintree", "~> 2.92.0"
+
+# JWT session
+gem 'jwt'
