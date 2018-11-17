@@ -32,7 +32,7 @@ class EventsController < ApplicationController
             start_date = params[:start]
             end_date = params[:end]
             if user && field && start_date && end_date
-                code = get_code()
+                code = get_code
                 event = Event.new(
                     start: start_date,
                     end: end_date,

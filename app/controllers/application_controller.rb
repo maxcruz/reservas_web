@@ -4,8 +4,12 @@ class ApplicationController < ActionController::Base
     protect_from_forgery with: :exception, unless: -> { request.format.json? }
 
     def current_user
-        decoded_token = JWT.decode bearer_token, nil, false
-        @current_user ||= User.find_by(id: decoded_token.first["id"]) if decoded_token.first["id"]
+        begin
+          decoded_token = JWT.decode bearer_token, nil, false
+          @current_user ||= User.find_by(id: decoded_token.first["id"]) if decoded_token.first["id"]
+        rescue JWT::DecodeError
+          @current_user = nil
+        end
     end
 
     helper_method :current_user
