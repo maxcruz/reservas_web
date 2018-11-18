@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+import DialogActions from "@material-ui/core/DialogActions";
+import Button from '@material-ui/core/Button';
 import moment from 'moment';
 
 const styles = theme => ({
@@ -29,7 +30,7 @@ const getDateDescription = ({start, end}) => {
 class PaymentReview extends React.Component {
 
     render() {
-        const {classes, card, slotInfo, price, user} = this.props;
+        const {classes, slotInfo, price, user} = this.props;
         const duration = Math.abs(slotInfo.end - slotInfo.start);
         const hours = parseInt((duration / (1000 * 60 * 60)) % 24);
         const totalPrice = '$' + (hours * price).toLocaleString();
@@ -55,13 +56,26 @@ class PaymentReview extends React.Component {
                         <Typography gutterBottom>{addresses.join(', ')}</Typography>
                     </Grid>
                 </Grid>
+                <DialogActions>
+                    <Button
+                        variant="outlined"
+                        size="small"
+                        color="primary"
+                        onClick={this.props.onClose}>
+                        Cancelar
+                    </Button>
+                    <Button
+                        variant="contained"
+                        size="small"
+                        color="primary"
+                        onClick={this.props.onNext}
+                        className={classes.buttonContained}>
+                        Siguiente
+                    </Button>
+                </DialogActions>
             </React.Fragment>
         )
     }
 }
-
-PaymentReview.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(PaymentReview);

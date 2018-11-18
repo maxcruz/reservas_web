@@ -2,17 +2,18 @@ import React from 'react';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
+
+import DialogActions from "@material-ui/core/DialogActions";
 import Button from '@material-ui/core/Button';
 
-import PaymentForm from './PaymentForm';
 import PaymentReview from './PaymentReview';
+import PaymentForm from './PaymentForm';
+import PaymentConfirm from "./PaymentConfirm";
 
 import modalStyle from "material-dashboard/assets/jss/material-dashboard-pro-react/modalStyle.jsx";
-import PaymentConfirm from "./PaymentConfirm";
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
@@ -42,9 +43,12 @@ class CheckoutModal extends React.Component {
     getStepContent(step) {
         switch (step) {
             case 0:
-                return <PaymentReview price={this.props.price}
+                return <PaymentReview
+                                price={this.props.price}
                                 slotInfo={this.props.slotInfo}
                                 user={this.props.user}
+                                onClose={this.handleBack}
+                                onNext={this.handleNext}
                                 />;
             case 1:
                 return <PaymentForm
@@ -120,42 +124,6 @@ class CheckoutModal extends React.Component {
                         </Stepper>
                         {this.getStepContent(activeStep)}
                     </DialogContent>
-                    <DialogActions
-                        className={classes.modalFooter + " " + classes.modalFooterCenter}>
-                        {activeStep === steps.length ? (
-                            <React.Fragment>
-                                <div className={classes.buttons}>
-                                    <Button
-                                        variant="contained"
-                                        size="small"
-                                        color="primary"
-                                        onClick={this.handleNext}>
-                                        Cerrar
-                                    </Button>
-                                </div>
-                            </React.Fragment>
-                        ) : (
-                            <React.Fragment>
-                                <div className={classes.buttons}>
-                                    <Button
-                                        variant="outlined"
-                                        size="small"
-                                        color="primary"
-                                        onClick={this.handleBack}>
-                                        {activeStep === 0 ? 'Cancelar' : 'Atrás'}
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        size="small"
-                                        color="primary"
-                                        onClick={this.handleNext}
-                                        className={classes.buttonContained}>
-                                        {activeStep === steps.length - 1 ? 'Confirmar' : 'Siguiente'}
-                                    </Button>
-                                </div>
-                            </React.Fragment>
-                        )}
-                    </DialogActions>
                 </Dialog>
             </div>
         );
