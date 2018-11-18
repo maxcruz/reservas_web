@@ -18,5 +18,5 @@ export const S = {
     BOOKING_STORE: "redux-store"
 };
 
-//export const URL = "https://reservas-web.herokuapp.com/api/";
-export const URL = "http://localhost:3000/api/";
+var getUrl = window.location;
+export const URL = getUrl .protocol + "//" + getUrl.host + "/api/"
