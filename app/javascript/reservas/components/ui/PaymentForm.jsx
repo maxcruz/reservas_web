@@ -2,6 +2,8 @@ import React from 'react';
 import BraintreeDropin from "braintree-dropin-react";
 import braintree from 'braintree-web-drop-in'
 import Grid from '@material-ui/core/Grid';
+import DialogActions from "@material-ui/core/DialogActions";
+import Button from '@material-ui/core/Button';
 
 class PaymentForm extends React.Component {
 
@@ -9,13 +11,32 @@ class PaymentForm extends React.Component {
         console.log('payload', payload)
     }
 
+    renderSubmitButton = ({onClick, isDisabled, text}) => {
+      return (
+          <DialogActions>
+              <Button
+                  variant="outlined"
+                  size="small"
+                  color="primary"
+                  onClick={this.props.onClose}>
+                  Regresar
+              </Button>
+              <Button
+                  variant="contained"
+                  size="small"
+                  color="primary"
+                  onClick={onClick}
+                  disabled={isDisabled}>
+                  {text}
+              </Button>
+          </DialogActions>
+      )
+    }
+
     render() {
         const { classes } = this.props;
         return (
-            <Grid container
-                direction="row"
-                justify="center"
-                alignItems="center">
+            <React.Fragment>
                 <BraintreeDropin
                     braintree={braintree}
                     options={{
@@ -23,10 +44,9 @@ class PaymentForm extends React.Component {
                     }}
                     authorizationToken={this.props.paymentToken}
                     handlePaymentMethod={this.handlePaymentMethod}
-
+                    renderSubmitButton={this.renderSubmitButton}
     				/>
-
-            </Grid>
+            </React.Fragment>
         )
     }
 }

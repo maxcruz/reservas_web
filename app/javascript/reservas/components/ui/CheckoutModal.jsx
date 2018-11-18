@@ -5,10 +5,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-
-import DialogActions from "@material-ui/core/DialogActions";
-import Button from '@material-ui/core/Button';
-
 import PaymentReview from './PaymentReview';
 import PaymentForm from './PaymentForm';
 import PaymentConfirm from "./PaymentConfirm";
@@ -53,6 +49,8 @@ class CheckoutModal extends React.Component {
             case 1:
                 return <PaymentForm
                                 paymentToken={this.props.paymentToken}
+                                onClose={this.handleBack}
+                                onNext={this.handleNext}
                                 />;
             case 2:
                 return <PaymentConfirm
