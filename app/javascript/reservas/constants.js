@@ -10,12 +10,13 @@ export const C = {
     LOGIN: "LOGIN",
 
     ADD_ERROR: "ADD_ERROR",
-    CLEAR_ERROR: "CLEAR_ERROR"
+    CLEAR_ERROR: "CLEAR_ERROR",
+    CLEAR_ALL_ERRORS: "CLEAR_ALL_ERRORS"
 };
 
 export const S = {
     BOOKING_STORE: "redux-store"
 };
 
-export const URL = "https://reservas-web.herokuapp.com/api/";
-//export const URL = "http://localhost:3000/api/";
+//export const URL = "https://reservas-web.herokuapp.com/api/";
+export const URL = "http://localhost:3000/api/";

@@ -30,11 +30,6 @@ class PaymentReview extends React.Component {
 
     render() {
         const {classes, card, slotInfo, price, user} = this.props;
-        const payments = [
-            {name: 'Nombre', detail: card.name},
-            {name: 'Número', detail: card.number.replace(/\d(?=\d{4})/g, "*")},
-            {name: 'Expiración', detail: card.expires}
-        ];
         const duration = Math.abs(slotInfo.end - slotInfo.start);
         const hours = parseInt((duration / (1000 * 60 * 60)) % 24);
         const totalPrice = '$' + (hours * price).toLocaleString();
@@ -58,23 +53,6 @@ class PaymentReview extends React.Component {
                             Contacto
                         </Typography>
                         <Typography gutterBottom>{addresses.join(', ')}</Typography>
-                    </Grid>
-                    <Grid item container direction="column" xs={12} sm={6}>
-                        <Typography variant="title" gutterBottom className={classes.title}>
-                            Pago
-                        </Typography>
-                        <Grid container>
-                            {payments.map(payment => (
-                                <React.Fragment key={payment.name}>
-                                    <Grid item xs={6}>
-                                        <Typography gutterBottom>{payment.name}</Typography>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Typography gutterBottom>{payment.detail}</Typography>
-                                    </Grid>
-                                </React.Fragment>
-                            ))}
-                        </Grid>
                     </Grid>
                 </Grid>
             </React.Fragment>

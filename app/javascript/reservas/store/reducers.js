@@ -40,6 +40,8 @@ export const errors = (state=[], action) => {
             ];
         case C.CLEAR_ERROR :
             return state.filter((message, i) => i !== action.payload);
+        case C.CLEAR_ALL_ERRORS :
+                return [];
         default:
             return state
     }

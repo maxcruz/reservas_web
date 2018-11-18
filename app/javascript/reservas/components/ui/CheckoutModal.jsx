@@ -16,7 +16,7 @@ import PaymentConfirm from "./PaymentConfirm";
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
-const steps = ['Pago', 'Confirmar'];
+const steps = ['Revisión', 'Pago', 'Confirmar'];
 
 const styles = () => ({
     buttons: {
@@ -36,53 +36,41 @@ class CheckoutModal extends React.Component {
             show: this.props.show,
             activeStep: 0,
             code: null,
-            card: {}
         };
-        this.cardChanged = this.cardChanged.bind(this)
     }
 
     getStepContent(step) {
         switch (step) {
             case 0:
-                return <PaymentForm id="card"
-                                    card={this.state.card}
-                                    onChange={this.cardChanged}/>;
+                return <PaymentReview price={this.props.price}
+                                slotInfo={this.props.slotInfo}
+                                user={this.props.user}
+                                />;
             case 1:
-                return <PaymentReview card={this.state.card}
-                                      price={this.props.price}
-                                      slotInfo={this.props.slotInfo}
-                                      user={this.props.user}/>;
+                return <PaymentForm
+                                paymentToken={this.props.paymentToken}
+                                />;
             case 2:
-                return (<PaymentConfirm code={this.state.code} />);
+                return <PaymentConfirm
+                                code={this.state.code}
+                                />;
             default:
                 throw new Error('Unknown step');
         }
     }
 
     performCheckout() {
-        const {card} = this.state;
         const {slotInfo, field_id, user} = this.props;
-        const {name, number, expires, verify} = card;
         const start = slotInfo.start;
         const end = slotInfo.end;
-        this.props.checkout(name, number, expires, verify, field_id, start, end, user.token)
+        this.props.checkout("name", "number", "expires", "verify", field_id, start, end, user.token)
             .then((code) => {
                 this.setState(code);
             })
     }
 
-    // TODO: Async loader indicator when pay
     handleNext = () => {
-        const {activeStep, card} = this.state;
-        if (activeStep === 0) {
-            let hasError;
-            const {name, number, expires, verify} = card;
-            hasError = (name === undefined || name === "");
-            hasError = hasError || (number === undefined || number === "");
-            hasError = hasError || (expires === undefined || expires === "");
-            hasError = hasError || (verify === undefined || verify === "");
-            if (hasError) return;
-        }
+        const {activeStep} = this.state;
         if (activeStep === 1) {
             this.performCheckout()
         }
@@ -107,10 +95,6 @@ class CheckoutModal extends React.Component {
         }
         this.setState({activeStep: activeStep - 1});
     };
-
-    cardChanged(value) {
-        this.setState({card: value})
-    }
 
     render() {
         const {classes} = this.props;

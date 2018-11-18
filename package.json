@@ -7,6 +7,8 @@
     "@rails/webpacker": "3.5",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
+    "braintree-dropin-react": "^0.1.1",
+    "braintree-web-drop-in": "^1.14.1",
     "isomorphic-fetch": "^2.2.1",
     "localizer": "^0.2.4",
     "moment": "^2.22.2",

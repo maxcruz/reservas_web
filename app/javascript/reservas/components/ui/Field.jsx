@@ -52,6 +52,7 @@ class Field extends React.Component {
             selectedDate: new Date(),
             selectedSlot: null,
             selectedPrice: null,
+            paymentToken: null,
             toHome: false,
             toLogin: false,
         };
@@ -93,12 +94,17 @@ class Field extends React.Component {
             });
             return;
         }
-        if (this.props.user.email) {
-            this.setState({
-                checkout: true,
-                selectedSlot: slotInfo,
-                selectedPrice: price
-            });
+        const {email, token} = this.props.user
+        if (email && token) {
+            this.props.paymentToken(token)
+                .then((token) => {
+                    this.setState({
+                        checkout: true,
+                        selectedSlot: slotInfo,
+                        selectedPrice: price,
+                        paymentToken: token.token
+                    });
+                });
         } else {
             this.setState({toLogin: true});
         }
@@ -291,6 +297,7 @@ class Field extends React.Component {
                         }}
                         slotInfo={this.state.selectedSlot}
                         price={this.state.selectedPrice}
+                        paymentToken={this.state.paymentToken}
                         field_id={this.props.field.id}
                         user={user}
                         checkout={this.props.checkout}
