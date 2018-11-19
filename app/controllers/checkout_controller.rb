@@ -12,13 +12,18 @@
         end
 
       def checkout
-          nonce = params[:nonce]
-          field = Field.find_by(id: params[:field_id])
           start_date = params[:start]
           end_date = params[:end]
-          promo = Promo.where("\"start\" <= ? AND \"end\" >= ?", start_date, end_date)
-                       .first
+          event = Event.where("\"start\" <= ? AND \"end\" >= ?", start_date, end_date).first
+          if (event)
+              render json: {}, status: :bad_request
+              return
+          end
+          promo = Promo.where("\"start\" <= ? AND \"end\" >= ?", start_date, end_date).first
           price = (promo) ? promo.price : field.price
+
+          nonce = params[:nonce]
+          field = Field.find_by(id: params[:field_id])
           result = payment(nonce, price)
           if result[:status]
               user = current_user

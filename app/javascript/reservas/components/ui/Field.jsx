@@ -96,8 +96,13 @@ class Field extends React.Component {
         const {email, token} = this.props.user
         if (email && token) {
             const {events} = this.state
-            const promo = events.filter(event => event.isPromo)
-                                .filter(event => event.start <= slotInfo.start && event.end >= slotInfo.end)
+            const hourEvents = events.filter(event => event.start <= slotInfo.start && event.end >= slotInfo.end)
+            const clashEvents = hourEvents.filter(event => !event.isPromo)
+            if (clashEvents[0]) {
+                alert(clashEvents[0].title);
+                return;
+            }
+            const promo = hourEvents.filter(event => event.isPromo)
             const finalPrice = (promo[0]) ? promo[0].price : price
             this.props.paymentToken(token)
                 .then((token) => {
