@@ -86,7 +86,6 @@ class Field extends React.Component {
     }
 
     openCheckoutModal(slotInfo, price) {
-        // TODO: Use price with promo in consideration
         if (slotInfo.start === slotInfo.end && this.state.view !== 'day') {
             this.setState({
                 view: 'day',
@@ -96,12 +95,16 @@ class Field extends React.Component {
         }
         const {email, token} = this.props.user
         if (email && token) {
+            const {events} = this.state
+            const promo = events.filter(event => event.isPromo)
+                                .filter(event => event.start <= slotInfo.start && event.end >= slotInfo.end)
+            const finalPrice = (promo[0]) ? promo[0].price : price
             this.props.paymentToken(token)
                 .then((token) => {
                     this.setState({
                         checkout: true,
                         selectedSlot: slotInfo,
-                        selectedPrice: price,
+                        selectedPrice: finalPrice,
                         paymentToken: token.token
                     });
                 });
@@ -127,7 +130,6 @@ class Field extends React.Component {
         return newEvent;
     };
 
-    // TODO: THIS SHOULD BE AN STYLE CONCERN
     static eventStyle(event) {
         let newStyle = {
             backgroundColor: "lightgrey",
