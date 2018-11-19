@@ -14,13 +14,14 @@
       def checkout
           nonce = params[:nonce]
           field = Field.find_by(id: params[:field_id])
-          # TODO: Use promotions price
-          price = field.price
+          start_date = params[:start]
+          end_date = params[:end]
+          promo = Promo.where("\"start\" <= ? AND \"end\" >= ?", start_date, end_date)
+                       .first
+          price = (promo) ? promo.price : field.price
           result = payment(nonce, price)
           if result[:status]
               user = current_user
-              start_date = params[:start]
-              end_date = params[:end]
               if user && field && start_date && end_date
                   code = get_code
                   event = Event.new(
