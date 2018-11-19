@@ -1,3 +1,5 @@
+require 'date'
+
 class CheckoutController < ApplicationController
 
     before_action :authorize
@@ -36,8 +38,10 @@ class CheckoutController < ApplicationController
             # Payment
             promo = Promo.where("\"start\" <= ? AND \"end\" >= ?", start_date, end_date).first
             price = (promo) ? promo.price : field.price
+            hours = (DateTime.parse(end_date).to_time - DateTime.parse(start_date).to_time) / 1.hours
+            total_price = price * hours
             nonce = params[:nonce]
-            result = payment(nonce, price)
+            result = payment(nonce, total_price)
             # Evaluate results and save event
             if result[:status]
                 code = get_code
