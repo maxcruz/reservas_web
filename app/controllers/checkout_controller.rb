@@ -12,16 +12,12 @@
         end
 
       def checkout
-          card = Card.new(
-              name: params[:name],
-              number: params[:number],
-              expires: params[:expires],
-              verify: params[:verify]
-          )
+          nonce = params[:nonce]
           field = Field.find_by(id: params[:field_id])
           # TODO: Use promotions price
           price = field.price
-          if payment(card, price)
+          result = payment(nonce, price)
+          if result[:status]
               user = current_user
               start_date = params[:start]
               end_date = params[:end]
@@ -43,16 +39,27 @@
                   render json: {}, status: :bad_request
               end
           else
-              render json:{}, status: :payment_required
+              render json:{ messages: result[:messages] }, status: :payment_required
           end
       end
 
-      def payment(card, price)
-          if (card.valid?)
-              # TODO: Call payu API here (we need https)
-              return true
+      def payment(nonce, amount)
+          result = gateway.transaction.sale(
+              amount: amount,
+              payment_method_nonce: nonce,
+              :billing => {
+                  :country_code_alpha2 => 'CO'
+              },
+              :options => {
+                  :submit_for_settlement => true
+              }
+          )
+          if result.success? || result.transaction
+              return { :status => true}
+          else
+              error_messages = result.errors.map { |error| "Error: #{error.code}: #{error.message}" }
+              return { :status => false, :messages => error_messages }
           end
-          return false
       end
 
       def get_code()
