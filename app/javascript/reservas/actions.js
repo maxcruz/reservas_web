@@ -143,7 +143,7 @@
     };
 
     export const paymentToken = (token) => (dispatch) => {
-        return fetch(URL + '/checkout/new_token', {
+        return fetch(URL + 'checkout/new_token', {
           headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
@@ -157,7 +157,7 @@
             });
     };
 
-    export const checkout = (name, number, expires, verify, field_id, start, end, token) => (dispatch) => {
+    export const checkout = (nonce, field_id, start, end, token) => (dispatch) => {
         return fetch(URL + 'checkout', {
             method: 'POST',
             headers: {
@@ -166,10 +166,7 @@
                 'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify({
-                name: name,
-                number: number,
-                expires: expires,
-                verify: verify,
+                nonce: nonce,
                 field_id: field_id,
                 start: start,
                 end: end

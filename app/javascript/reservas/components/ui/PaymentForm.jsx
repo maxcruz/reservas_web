@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 class PaymentForm extends React.Component {
 
     handlePaymentMethod = (payload) => {
-        console.log('payload', payload)
+        this.props.onNext(payload.nonce)
     }
 
     renderSubmitButton = ({onClick, isDisabled, text}) => {
@@ -18,7 +18,7 @@ class PaymentForm extends React.Component {
                   variant="outlined"
                   size="small"
                   color="primary"
-                  onClick={this.props.onClose}>
+                  onClick={this.props.onBack}>
                   Regresar
               </Button>
               <Button

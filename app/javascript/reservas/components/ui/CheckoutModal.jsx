@@ -49,34 +49,47 @@ class CheckoutModal extends React.Component {
             case 1:
                 return <PaymentForm
                                 paymentToken={this.props.paymentToken}
-                                onClose={this.handleBack}
-                                onNext={this.handleNext}
+                                onBack={this.handleBack}
+                                onNext={(nonce) => {
+                                    this.handleNext(nonce)
+                                }}
                                 />;
             case 2:
                 return <PaymentConfirm
                                 code={this.state.code}
+                                onBack={this.handleBack}
+                                onNext={this.handleNext}
                                 />;
             default:
                 throw new Error('Unknown step');
         }
     }
 
-    performCheckout() {
+    performCheckout(nonce, nextStep) {
         const {slotInfo, field_id, user} = this.props;
         const start = slotInfo.start;
         const end = slotInfo.end;
-        this.props.checkout("name", "number", "expires", "verify", field_id, start, end, user.token)
+        this.props.checkout(nonce, field_id, start, end, user.token)
             .then((code) => {
-                this.setState(code);
+                this.setState({
+                    code: code.code,
+                    activeStep: nextStep
+                });
+            })
+            .catch(() => {
+                this.setState({
+                    activeStep: nextStep
+                });
             })
     }
 
-    handleNext = () => {
+    handleNext = (nonce) => {
         const {activeStep} = this.state;
-        if (activeStep === 1) {
-            this.performCheckout()
+        if (activeStep === 1 && nonce) {
+            this.performCheckout(nonce, activeStep + 1)
+            return;
         }
-        if (activeStep === steps.length) {
+        if (activeStep === (steps.length - 1)) {
             this.setState({show: false});
             if (this.state.code){
                 this.props.onClose(this.state.code, this.props.slotInfo);

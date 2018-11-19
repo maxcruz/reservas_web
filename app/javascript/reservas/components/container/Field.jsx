@@ -25,9 +25,9 @@ const mapDispatchToProps = (dispatch) =>
                 paymentToken(token)
             )
         },
-        checkout(name, number, expires, verify, field_id, start, end, token) {
+        checkout(nonce, field_id, start, end, token) {
             return dispatch(
-                checkout(name, number, expires, verify, field_id, start, end, token)
+                checkout(nonce, field_id, start, end, token)
             )
         }
     });
