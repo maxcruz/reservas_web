@@ -3,6 +3,11 @@ class CheckoutController < ApplicationController
     before_action :authorize
 
     def new_token
+        user = current_user
+        if user.is_admin
+            render json:{skip_ui_payment: true}
+            return
+        end
         client_token = gateway.client_token.generate
         if (client_token)
             render json:{token: client_token}

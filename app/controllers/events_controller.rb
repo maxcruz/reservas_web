@@ -4,7 +4,7 @@ class EventsController < ApplicationController
         user = current_user
         events = Event.where(field_id: params[:id])
         processed = events.map { |event|
-            is_mine = user != nil && user.id == event.user_id
+            is_mine = (user != nil) && (user.id == event.user_id || user.is_admin)
             title = is_mine ? event.code : 'RESERVADO'
             {
                 title: title,
