@@ -53,6 +53,7 @@ class Field extends React.Component {
             selectedSlot: null,
             selectedPrice: null,
             paymentToken: null,
+            isAdmin: false,
             toHome: false,
             toLogin: false,
         };
@@ -105,12 +106,13 @@ class Field extends React.Component {
             const promo = hourEvents.filter(event => event.isPromo)
             const finalPrice = (promo[0]) ? promo[0].price : price
             this.props.paymentToken(token)
-                .then((token) => {
+                .then((transaction) => {
                     this.setState({
                         checkout: true,
                         selectedSlot: slotInfo,
                         selectedPrice: finalPrice,
-                        paymentToken: token.token
+                        paymentToken: transaction.token,
+                        isAdmin: transaction.is_admin
                     });
                 });
         } else {
@@ -305,6 +307,7 @@ class Field extends React.Component {
                         slotInfo={this.state.selectedSlot}
                         price={this.state.selectedPrice}
                         paymentToken={this.state.paymentToken}
+                        isAdmin={this.state.isAdmin}
                         field_id={this.props.field.id}
                         user={user}
                         checkout={this.props.checkout}

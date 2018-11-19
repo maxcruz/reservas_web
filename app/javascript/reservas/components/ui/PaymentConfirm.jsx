@@ -12,27 +12,56 @@ const styles = theme => ({
 
 class PaymentConfirm extends React.Component {
 
+    componentSuccess(code, isAdmin, classes) {
+        return (
+            <div className={classes.container}>
+                <Typography variant="h5" gutterBottom>
+                    {isAdmin ? 'Bloqueado' : 'Gracias por tu compra.'}
+                </Typography>
+                {this.confirmMessage(code, isAdmin)}
+            </div>
+        )
+    }
+
+    confirmMessage(code, isAdmin) {
+        if (isAdmin) {
+            return (
+                <Typography variant="subheading">
+                    El horario ha sido reservado por el administrador de la cancha.
+                </Typography>
+            )
+        } else {
+            return (
+                <Typography variant="subheading">
+                    Tu número de orden es <b>{code}</b>. Hemos enviado por correo electrónico la confirmación de su reserva, por favor presentela en el lugar.
+                </Typography>
+            )
+        }
+    }
+
+    componentError(classes) {
+        return (
+            <div className={classes.container}>
+                <Typography variant="subheading" align="center">
+                    Algo salió mal. Por favor vuelva a intentarlo.
+                </Typography>
+            </div>
+        )
+    }
+
+    evaluate(code, isAdmin, classes) {
+        if (code) {
+            return this.componentSuccess(code, isAdmin, classes)
+        } else {
+            return this.componentError(classes)
+        }
+    }
+
     render() {
-        const {classes, code, onBack, onNext} = this.props;
+        const {classes, code, isAdmin, onBack, onNext} = this.props;
         return(
             <React.Fragment>
-                {code ? (
-                    <div className={classes.container}>
-                        <Typography variant="h5" gutterBottom>
-                            Gracias por tu compra.
-                        </Typography>
-                        <Typography variant="subheading">
-                            Tu número de orden es <b>{code}</b>. Hemos enviado por correo electrónico la
-                            confirmación de su reserva, por favor presentela en el lugar.
-                        </Typography>
-                    </div>
-                ) : (
-                    <div className={classes.container}>
-                        <Typography variant="subheading" align="center">
-                            Algo salió mal. Por favor vuelva a intentarlo.
-                        </Typography>
-                    </div>
-                )}
+                {this.evaluate(code, isAdmin, classes)}
                 <DialogActions>
                     {!code ? (
                         <Button

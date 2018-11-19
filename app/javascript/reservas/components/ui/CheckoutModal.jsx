@@ -13,8 +13,6 @@ import modalStyle from "material-dashboard/assets/jss/material-dashboard-pro-rea
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
-const steps = ['Revisión', 'Pago', 'Confirmar'];
-
 const styles = () => ({
     buttons: {
         margin: '5px',
@@ -34,6 +32,9 @@ class CheckoutModal extends React.Component {
             activeStep: 0,
             code: null,
         };
+        this.steps = (this.props.isAdmin) ? ['Revisión', 'Confirmar']
+                                          : ['Revisión', 'Pago', 'Confirmar'];
+
     }
 
     getStepContent(step) {
@@ -56,6 +57,7 @@ class CheckoutModal extends React.Component {
                                 />;
             case 2:
                 return <PaymentConfirm
+                                isAdmin={this.props.isAdmin}
                                 code={this.state.code}
                                 onBack={this.handleBack}
                                 onNext={this.handleNext}
@@ -85,11 +87,19 @@ class CheckoutModal extends React.Component {
 
     handleNext = (nonce) => {
         const {activeStep} = this.state;
+        if (this.props.isAdmin) {
+            if (activeStep === 0) {
+                this.performCheckout("", activeStep + 2)
+            } else {
+                this.props.onClose(this.state.code, this.props.slotInfo);
+            }
+            return;
+        }
         if (activeStep === 1 && nonce) {
             this.performCheckout(nonce, activeStep + 1)
             return;
         }
-        if (activeStep === (steps.length - 1)) {
+        if (activeStep === (this.steps.length - 1)) {
             this.setState({show: false});
             if (this.state.code){
                 this.props.onClose(this.state.code, this.props.slotInfo);
@@ -108,6 +118,11 @@ class CheckoutModal extends React.Component {
             this.props.onClose();
             return;
         }
+        if (this.props.isAdmin && activeStep === 2) {
+            this.setState({activeStep: 0});
+            return;
+        }
+
         this.setState({activeStep: activeStep - 1});
     };
 
@@ -127,7 +142,7 @@ class CheckoutModal extends React.Component {
                         id="modal-slide-description"
                         className={classes.modalBody}>
                         <Stepper activeStep={activeStep} className={classes.stepper}>
-                            {steps.map(label => (
+                            {this.steps.map(label => (
                                 <Step key={label}>
                                     <StepLabel>{label}</StepLabel>
                                 </Step>
