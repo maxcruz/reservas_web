@@ -30,6 +30,21 @@ import {Redirect} from "react-router-dom";
 
 const localized = BigCalendar.momentLocalizer(moment);
 
+const calendar_messages = {
+  allDay: 'Todo el día',
+  previous: 'Anterior',
+  next: 'Siguiente',
+  today: 'Hoy',
+  month: 'Mes',
+  week: 'Semana',
+  day: 'Día',
+  agenda: 'Agenda',
+  date: 'Fecha',
+  time: 'Hora',
+  event: 'Evento',
+  showMore: total => `+ Más (${total})`
+};
+
 const stylesMain = () => ({
     stats: {
         color: 'grey',
@@ -58,6 +73,7 @@ class Field extends React.Component {
             toLogin: false,
         };
     }
+
     componentWillMount() {
         const {field, user} = this.props;
         if (!field.id) {
@@ -269,7 +285,9 @@ class Field extends React.Component {
                                 <CardBody calendar>
                                     <BigCalendar
                                         selectable
+                                        culture='es-ES'
                                         localizer={localized}
+                                        messages={calendar_messages}
                                         events={events}
                                         style={{height: '80vh'}}
                                         defaultView='week'
