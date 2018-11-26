@@ -155,16 +155,19 @@ class Field extends React.Component {
 
     static eventStyle(event) {
         let newStyle = {
-            backgroundColor: "lightgrey",
+            backgroundColor: "#B0BEC5BF",
             color: 'black',
-            borderRadius: "0px",
+            borderRadius: "5px",
+            width: "60%",
+            padding: "5px",
+            margin: "1px",
             border: "none"
         };
         if (event.isPromo) {
-            newStyle.backgroundColor = "pink"
+            newStyle.backgroundColor = "#E3325A40"
         }
         if (event.isMine) {
-            newStyle.backgroundColor = "blue"
+            newStyle.backgroundColor = "#4054AFBF"
         }
         return {className: "", style: newStyle};
     }
@@ -291,7 +294,7 @@ class Field extends React.Component {
                                         events={events}
                                         style={{height: '80vh'}}
                                         defaultView='week'
-                                        date={this.state.selectedDate}
+                                        date={this.state.selectedDate} 
                                         timeslots={1}
                                         step={60}
                                         min={new Date(2017, 10, 0, 9, 0, 0)}
